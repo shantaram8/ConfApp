@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="130dp"
         android:background="#000000">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -18,41 +20,61 @@
             android:src="@drawable/bg"
 
             />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center|bottom">
+            android:layout_gravity="center|bottom"
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
                 android:src="@drawable/logo_white"
 
-                android:layout_gravity="top|center"/>
+                />
 
             <ImageView
                 android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:layout_gravity="bottom|center"
-                android:src="@drawable/corona2_2" />
+                android:src="@drawable/corona2_2"
+
+                />
         </LinearLayout>
 
     </FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="#1C1819"
+        android:text="@string/activity_main_text_view_name"
+        android:layout_margin="16dp"
+        />
 
     <EditText
         android:id="@+id/activity_main_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:textColorHint="#888B94"
         android:hint="@string/activity_main_hint_edit_text"
-        android:layout_marginHorizontal="15dp"/>
+
+        />
 
     <Button
         android:id="@+id/activity_main_continue_button"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/activity_main_continue_button" />
+        android:layout_marginHorizontal="16dp"
+        android:padding="10dp"
+        android:text="@string/activity_main_continue_button"
+        android:textColor="#787878"
+        android:textSize="16sp"
+        android:background="@drawable/button_bg"/>
 
 
 </LinearLayout>

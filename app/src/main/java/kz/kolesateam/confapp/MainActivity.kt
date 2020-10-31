@@ -1,6 +1,8 @@
 package kz.kolesateam.confapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import kz.kolesateam.confapp.hello.presentation.HelloActivity
 
 private const val TAG = "MainActivity"
+const val USER_NAME_KEY = "user_name"
+const val APPLICATION_KEY = "application"
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +28,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val name: String = mainActivityNameEditText.text.toString()
 
 
         mainActivityNameEditText.addTextChangedListener((object:TextWatcher {
@@ -41,11 +44,28 @@ class MainActivity : AppCompatActivity() {
             }
 
         }))
+
         continueButton.setOnClickListener {
-            val helloScreenIntent = Intent(this, HelloActivity::class.java)
-            startActivity(helloScreenIntent)
+            saveUserName(mainActivityNameEditText.text.toString())
+            navigateToHelloScreen()
         }
 
     }
+    private fun saveUserName(userName: String) {
+        val sharedPreferences: SharedPreferences = getSharedPreferences(
+            APPLICATION_KEY,
+            Context.MODE_PRIVATE
+        )
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+        editor.putString(USER_NAME_KEY, userName)
+        editor.apply()
+
+    }
+    private fun navigateToHelloScreen() {
+        val helloScreenIntent = Intent(this, HelloActivity::class.java)
+        startActivity(helloScreenIntent)
+    }
+
 
 }

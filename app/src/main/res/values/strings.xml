@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ConfApp</string>
+    <string name="activity_main_hint_edit_text">Введи свое имя</string>
+    <string name="activity_main_continue_button">Продолжить</string>
 </resources>

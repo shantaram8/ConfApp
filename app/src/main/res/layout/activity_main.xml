@@ -10,8 +10,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="#000000">
+        android:layout_height="165dp"
+        android:background="@color/black">
 
         <ImageView
             android:layout_width="match_parent"
@@ -22,8 +22,8 @@
             />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center|bottom"
             android:orientation="vertical">
 
@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center"
+                android:layout_marginTop="14dp"
                 android:src="@drawable/logo_white"
 
                 />
@@ -62,7 +63,7 @@
         android:layout_margin="16dp"
         android:paddingVertical="13dp"
         android:paddingHorizontal="16dp"
-        android:textColorHint="#888B94"
+        android:textColorHint="#33000000"
         android:hint="@string/activity_main_hint_edit_text"
         android:background="@drawable/edit_text_bg"
 
@@ -74,9 +75,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="16dp"
-        android:paddingVertical="10dp"
+        android:padding="10dp"
+        android:textAllCaps="false"
         android:text="@string/activity_main_continue_button"
-        android:textColor="#787878"
+        android:textColor="@drawable/text_color"
+        android:enabled="false"
         android:textSize="16sp"
         android:background="@drawable/button_bg"/>
 

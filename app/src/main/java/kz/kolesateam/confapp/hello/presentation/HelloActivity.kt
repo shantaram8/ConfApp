@@ -1,9 +1,8 @@
 package kz.kolesateam.confapp.hello.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import kz.kolesateam.confapp.R
 
 private const val TAG = "HelloActivity"
@@ -22,42 +21,7 @@ class HelloActivity : AppCompatActivity() {
             finish()
         }
 
-        Log.d(TAG, "onCreate")
     }
 
-    override fun onRestart() {
-        super.onRestart()
 
-        Log.d(TAG, "onRestart")
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        Log.d(TAG, "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        Log.d(TAG, "onResume")
-    }
-
-    override fun onPause() {
-        Log.d(TAG, "onPause")
-
-        super.onPause()
-    }
-
-    override fun onStop() {
-        Log.d(TAG, "onStop")
-
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        Log.d(TAG, "onDestroy")
-
-        super.onDestroy()
-    }
 }

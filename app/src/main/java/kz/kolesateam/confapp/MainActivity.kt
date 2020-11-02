@@ -11,7 +11,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import kz.kolesateam.confapp.hello.presentation.HelloActivity
 
-private const val TAG = "MainActivity"
 const val USER_NAME_KEY = "user_name"
 const val APPLICATION_KEY = "application"
 

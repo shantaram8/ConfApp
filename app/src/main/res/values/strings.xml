@@ -4,6 +4,8 @@
     <string name="activity_main_continue_button">Продолжить</string>
     <string name="activity_main_text_view_name">Как тебя зовут?</string>
     <string name="hello_text">Привет</string>
-    <string name="hello_text_fmt">Привет %1s!!!</string>
     <string name="back_button_text">Назад</string>
+
+    <string name="hello_text_fmt">Привет %1s!!!</string>
+
 </resources>

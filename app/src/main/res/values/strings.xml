@@ -8,4 +8,9 @@
 
     <string name="hello_text_fmt">Привет %1s!!!</string>
 
+    <string name="activity_main_logo_description">Kolesa Conf logo</string>
+    <string name="activity_main_corona_logo">Corona Logo</string>
+    <string name="string_activity_main_corona_logo">Corona Logo</string>
+    <string name="activity_main_background">Background</string>
+
 </resources>

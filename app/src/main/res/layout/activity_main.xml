@@ -19,7 +19,7 @@
             android:scaleType="matrix"
             android:src="@drawable/bg"
 
-            />
+            android:contentDescription="@string/activity_main_background" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center"
                 android:layout_marginTop="14dp"
-                android:src="@drawable/logo_white"
+                app:srcCompat="@drawable/logo_white"
 
-                />
+                android:contentDescription="@string/activity_main_logo_description" />
 
             <ImageView
                 android:layout_width="134dp"
@@ -42,7 +42,7 @@
                 android:layout_gravity="bottom|center"
                 android:src="@drawable/corona2_2"
 
-                />
+                android:contentDescription="@string/string_activity_main_corona_logo" />
         </LinearLayout>
 
     </FrameLayout>
@@ -66,8 +66,8 @@
         android:textColorHint="#33000000"
         android:hint="@string/activity_main_hint_edit_text"
         android:background="@drawable/edit_text_bg"
-
-        />
+        android:inputType="text"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/activity_main_continue_button"

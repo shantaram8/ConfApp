@@ -30,6 +30,7 @@ class TestHelloActivity : AppCompatActivity() {
         }
 
     }
+
     private fun getSavedUserName(): String {
         val sharedPreferences: SharedPreferences = getSharedPreferences(
             APPLICATION_KEY,

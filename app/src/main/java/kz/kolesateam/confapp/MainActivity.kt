@@ -9,7 +9,7 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import kz.kolesateam.confapp.hello.presentation.HelloActivity
+import kz.kolesateam.confapp.hello.presentation.TestHelloActivity
 
 const val USER_NAME_KEY = "user_name"
 const val APPLICATION_KEY = "application"
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun navigateToHelloScreen() {
-        val helloScreenIntent = Intent(this, HelloActivity::class.java)
+        val helloScreenIntent = Intent(this, TestHelloActivity::class.java)
         startActivity(helloScreenIntent)
     }
 

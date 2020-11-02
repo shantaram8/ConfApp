@@ -7,11 +7,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kz.kolesateam.confapp.APPLICATION_KEY
-import kz.kolesateam.confapp.USER_NAME_KEY
 import kz.kolesateam.confapp.R
+import kz.kolesateam.confapp.USER_NAME_KEY
 
 
-class HelloActivity : AppCompatActivity() {
+class TestHelloActivity : AppCompatActivity() {
 
     private val closeHelloButton: Button by lazy {
         findViewById(R.id.activity_hello_close_hello_button)

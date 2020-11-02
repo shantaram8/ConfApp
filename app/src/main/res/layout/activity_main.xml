@@ -37,8 +37,8 @@
                 />
 
             <ImageView
-                android:layout_width="104dp"
-                android:layout_height="104dp"
+                android:layout_width="134dp"
+                android:layout_height="134dp"
                 android:layout_gravity="bottom|center"
                 android:src="@drawable/corona2_2"
 

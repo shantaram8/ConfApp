@@ -11,7 +11,7 @@ import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.USER_NAME_KEY
 
 
-class HelloActivity : AppCompatActivity() {
+class TestHelloActivity : AppCompatActivity() {
 
     private val closeHelloButton: Button by lazy {
         findViewById(R.id.activity_hello_close_hello_button)
@@ -30,6 +30,7 @@ class HelloActivity : AppCompatActivity() {
         }
 
     }
+
     private fun getSavedUserName(): String {
         val sharedPreferences: SharedPreferences = getSharedPreferences(
             APPLICATION_KEY,

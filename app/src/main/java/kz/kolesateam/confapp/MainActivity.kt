@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        mainActivityNameEditText.addTextChangedListener((object:TextWatcher {
+        mainActivityNameEditText.addTextChangedListener((object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     private fun saveUserName(userName: String) {
         val sharedPreferences: SharedPreferences = getSharedPreferences(
             APPLICATION_KEY,
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         editor.apply()
 
     }
+
     private fun navigateToHelloScreen() {
         val helloScreenIntent = Intent(this, TestHelloActivity::class.java)
         startActivity(helloScreenIntent)

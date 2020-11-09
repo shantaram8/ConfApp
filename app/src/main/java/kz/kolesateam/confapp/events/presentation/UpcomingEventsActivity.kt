@@ -33,10 +33,10 @@ class UpcomingEventsActivity : AppCompatActivity() {
 
         bindViews()
         asyncButton.setOnClickListener {
-            loadApiData()
+            loadApiDataAsync()
         }
         syncButton.setOnClickListener {
-
+            loadApiDataSync()
         }
 
     }
@@ -45,7 +45,9 @@ class UpcomingEventsActivity : AppCompatActivity() {
         asyncButton = findViewById(R.id.activity_upcoming_events_async_button)
         syncButton = findViewById(R.id.activity_upcoming_events_sync_button)
     }
-    private fun loadApiData() {
+    private fun loadApiDataAsync() {
+        jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
+
         apiClient.getUpcomingEvents().enqueue(object : Callback<JsonNode> {
             override fun onResponse(call: Call<JsonNode>, response: Response<JsonNode>) {
                 if (response.isSuccessful) {
@@ -55,8 +57,22 @@ class UpcomingEventsActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<JsonNode>, t: Throwable) {
+                jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
                 jsonResponse.text = t.localizedMessage
             }
         })
+    }
+    private fun loadApiDataSync() {
+        jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
+        Thread {
+            val response: Response<JsonNode> = apiClient.getUpcomingEvents().execute()
+            if (response.isSuccessful) {
+                val body: JsonNode = response.body()!!
+                runOnUiThread {
+                    jsonResponse.text = body.toString()
+
+                }
+            }
+        }.start()
     }
 }

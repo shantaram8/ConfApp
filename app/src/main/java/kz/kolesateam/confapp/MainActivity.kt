@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 val isInputEmpty: Boolean = s.toString().isBlank()
-                continueButton.isEnabled = !isInputEmpty
+                continueButton.isEnabled = !isInputEmpty                                            
             }
 
         }))

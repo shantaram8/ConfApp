@@ -5,4 +5,5 @@
     <dimen name="activity_main_text_view_margin">16dp</dimen>
     <dimen name="activity_main_edit_text_margin">16dp</dimen>
     <dimen name="activity_main_image_view_corona_size">134dp</dimen>
+    <dimen name="activity_upcoming_events_button_margin">10dp</dimen>
 </resources>

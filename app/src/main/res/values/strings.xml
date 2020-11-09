@@ -11,5 +11,7 @@
     <string name="activity_main_logo_description">Kolesa Conf logo</string>
     <string name="activity_main_corona_logo_description">Corona Logo</string>
     <string name="activity_main_background_description">Background</string>
+    <string name="activity_upcoming_events_async_button_text">Async loading</string>
+    <string name="activity_upcoming_events_sync_button_text">Sync loading</string>
 
 </resources>

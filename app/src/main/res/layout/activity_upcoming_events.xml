@@ -17,14 +17,15 @@
             android:id="@+id/activity_upcoming_events_sync_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="80dp"
-            android:text="Sync loading" />
+            android:layout_margin="@dimen/activity_upcoming_events_button_margin"
+            android:text="@string/activity_upcoming_events_sync_button_text" />
 
         <Button
             android:id="@+id/activity_upcoming_events_async_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Async loading" />
+            android:layout_margin="@dimen/activity_upcoming_events_button_margin"
+            android:text="@string/activity_upcoming_events_async_button_text" />
     </LinearLayout>
 
     <ScrollView
@@ -36,7 +37,6 @@
             android:id="@+id/activity_upcoming_events_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="" />
 
     </ScrollView>

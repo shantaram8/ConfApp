@@ -11,31 +11,39 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/activity_upcoming_events_sync_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sync loading"
             android:layout_marginRight="80dp"
-            />
+            android:text="Sync loading" />
 
         <Button
             android:id="@+id/activity_upcoming_events_async_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Async loading"
-            />
+            android:text="Async loading" />
     </LinearLayout>
-    <TextView
-        android:id="@+id/activity_upcoming_events_text_view"
+
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="some json" />
-    <Spinner
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/activity_upcoming_events_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="" />
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/activity_upcoming_events_progress_bar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

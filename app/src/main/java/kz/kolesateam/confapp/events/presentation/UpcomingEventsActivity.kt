@@ -23,9 +23,9 @@ val apiClient: ApiClient = apiRetrofit.create(ApiClient::class.java)
 
 
 class UpcomingEventsActivity : AppCompatActivity() {
-    private lateinit var jsonResponse : TextView
-    private lateinit var asyncButton : Button
-    private lateinit var syncButton : Button
+    private lateinit var jsonResponse: TextView
+    private lateinit var asyncButton: Button
+    private lateinit var syncButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +40,13 @@ class UpcomingEventsActivity : AppCompatActivity() {
         }
 
     }
+
     private fun bindViews() {
         jsonResponse = findViewById(R.id.activity_upcoming_events_text_view)
         asyncButton = findViewById(R.id.activity_upcoming_events_async_button)
         syncButton = findViewById(R.id.activity_upcoming_events_sync_button)
     }
+
     private fun loadApiDataAsync() {
         jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
 
@@ -62,16 +64,22 @@ class UpcomingEventsActivity : AppCompatActivity() {
             }
         })
     }
+
     private fun loadApiDataSync() {
-        jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
         Thread {
-            val response: Response<JsonNode> = apiClient.getUpcomingEvents().execute()
-            if (response.isSuccessful) {
+            try {
+                val response: Response<JsonNode> = apiClient.getUpcomingEvents().execute()
                 val body: JsonNode = response.body()!!
                 runOnUiThread {
                     jsonResponse.text = body.toString()
-
+                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
                 }
+            } catch (ex: Exception) {
+                runOnUiThread {
+                    jsonResponse.text = ex.message.toString()
+                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+                }
+
             }
         }.start()
     }

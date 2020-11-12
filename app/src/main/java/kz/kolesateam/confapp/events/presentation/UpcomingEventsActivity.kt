@@ -12,6 +12,7 @@ import kz.kolesateam.confapp.events.data.models.BranchApiData
 import kz.kolesateam.confapp.events.data.models.EventApiData
 import kz.kolesateam.confapp.events.data.models.SpeakerApiData
 import kz.kolesateam.confapp.network.apiClient
+import kz.kolesateam.confapp.network.apiClientManual
 import okhttp3.ResponseBody
 import org.json.JSONArray
 import org.json.JSONObject
@@ -34,77 +35,67 @@ class UpcomingEventsActivity : AppCompatActivity() {
         bindViews()
         progressBar.visibility = View.GONE
         asyncButton.setOnClickListener {
-            //loadApiDataAsync()
+            loadApiDataAsync()
         }
         syncButton.setOnClickListener {
-            parseApiDataManual()
+            loadApiDataSync()
         }
 
     }
 
     private fun bindViews() {
+
         jsonResponse = findViewById(R.id.activity_upcoming_events_text_view)
         asyncButton = findViewById(R.id.activity_upcoming_events_async_button)
         syncButton = findViewById(R.id.activity_upcoming_events_sync_button)
         progressBar = findViewById(R.id.activity_upcoming_events_progress_bar)
     }
 
-//    private fun loadApiDataAsync() {
-//        progressBar.visibility = View.VISIBLE
-//        apiClient.getUpcomingEvents().enqueue(object : Callback<ResponseBody> {
-//            override fun onResponse(call: Call<JsonNode>, response: Response<JsonNode>) {
-//                if (response.isSuccessful) {
-//                    val body: JsonNode = response.body()!!
-//                    jsonResponse.text = body.toString()
-//                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<JsonNode>, t: Throwable) {
-//                jsonResponse.text = t.localizedMessage
-//                jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
-//            }
-//        })
-//    }
+    private fun loadApiDataAsync() {
+        progressBar.visibility = View.VISIBLE
+        apiClient.getUpcomingEvents().enqueue(object : Callback<List<BranchApiData>> {
+            override fun onResponse(
+                call: Call<List<BranchApiData>>,
+                response: Response<List<BranchApiData>>
+            ) {
 
-    //    private fun loadApiDataSync() {
-//        Thread {
-//            Thread.sleep(10)
-//            try {
-//                runOnUiThread {
-//                    progressBar.visibility = View.VISIBLE
-//                }
-//                val response: Response<JsonNode> = apiClient.getUpcomingEvents().execute()
-//                val body: JsonNode = response.body()!!
-//                runOnUiThread {
-//                    progressBar.visibility = View.GONE
-//                    jsonResponse.text = body.toString()
-//                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
-//                }
-//            } catch (ex: Exception) {
-//                runOnUiThread {
-//                    jsonResponse.text = ex.message.toString()
-//                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
-//                }
-//
-//            }
-//        }.start()
-//    }
-    private fun parseApiDataManual() {
-        apiClient.getUpcomingEvents().enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 val responseBody = response.body()!!
-                val responseJsonString = responseBody.string()
-                val responseJsonArray = JSONArray(responseJsonString)
+                jsonResponse.text = responseBody.toString()
+                jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
 
-                val apiBranchDataList = parseBranchesJsonArray(responseJsonArray)
-                Log.d("ParsingResult", apiBranchDataList.toString())
             }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.d("UpcomingEventsActivity", t.localizedMessage ?: "Failure occurred")
+            override fun onFailure(call: Call<List<BranchApiData>>, t: Throwable) {
+                jsonResponse.text = t.localizedMessage
+                jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
             }
         })
+    }
+
+    private fun loadApiDataSync() {
+        Thread {
+            try {
+                runOnUiThread {
+                    progressBar.visibility = View.VISIBLE
+                }
+                val response: Response<ResponseBody> = apiClientManual.getUpcomingEvents().execute()
+                val responseBody: ResponseBody = response.body()!!
+                val responseJsonString = responseBody.string()
+                val responseJsonArray = JSONArray(responseJsonString)
+                val apiBranchDataList = parseBranchesJsonArray(responseJsonArray)
+                runOnUiThread {
+                    progressBar.visibility = View.INVISIBLE
+                    jsonResponse.text = apiBranchDataList.toString()
+                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
+                }
+            } catch (ex: Exception) {
+                runOnUiThread {
+                    jsonResponse.text = ex.message.toString()
+                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+                }
+
+            }
+        }.start()
     }
 
     private fun parseBranchesJsonArray(

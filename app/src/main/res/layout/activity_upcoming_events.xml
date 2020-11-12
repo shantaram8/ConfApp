@@ -34,7 +34,7 @@
         android:layout_margin="20dp">
 
         <TextView
-            android:id="@+id/activity_upcoming_events_text_view"
+            android:id="@+id/activity_upcoming_events_response_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="" />

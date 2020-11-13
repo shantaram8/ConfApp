@@ -58,7 +58,8 @@ class UpcomingEventsActivity : AppCompatActivity() {
                     jsonResponseTextView.text = body.toString()
                     jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
                 } else {
-
+                    jsonResponseTextView.text = "Server response wasn't successful "
+                    jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
                 }
                 progressBar.visibility = View.INVISIBLE
             }

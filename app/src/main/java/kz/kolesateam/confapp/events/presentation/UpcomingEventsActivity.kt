@@ -33,7 +33,6 @@ class UpcomingEventsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_upcoming_events)
 
         bindViews()
-        progressBar.visibility = View.GONE
         asyncButton.setOnClickListener {
             loadApiDataAsync()
         }
@@ -58,34 +57,40 @@ class UpcomingEventsActivity : AppCompatActivity() {
                     val body: JsonNode = response.body()!!
                     jsonResponseTextView.text = body.toString()
                     jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
+                } else {
+
                 }
+                progressBar.visibility = View.INVISIBLE
             }
 
             override fun onFailure(call: Call<JsonNode>, t: Throwable) {
                 jsonResponseTextView.text = t.localizedMessage
                 jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+                progressBar.visibility = View.INVISIBLE
+
             }
+
         })
     }
 
     private fun loadApiDataSync() {
+        progressBar.visibility = View.VISIBLE
         Thread {
-            Thread.sleep(10)
             try {
                 runOnUiThread{
-                    progressBar.visibility = View.VISIBLE
                 }
                 val response: Response<JsonNode> = apiClient.getUpcomingEvents().execute()
                 val body: JsonNode = response.body()!!
                 runOnUiThread {
-                    progressBar.visibility = View.GONE
                     jsonResponseTextView.text = body.toString()
                     jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
+                    progressBar.visibility = View.INVISIBLE
                 }
             } catch (ex: Exception) {
                 runOnUiThread {
                     jsonResponseTextView.text = ex.message.toString()
                     jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+                    progressBar.visibility = View.INVISIBLE
                 }
 
             }

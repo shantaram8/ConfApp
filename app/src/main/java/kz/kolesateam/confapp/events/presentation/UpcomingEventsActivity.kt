@@ -57,14 +57,14 @@ class UpcomingEventsActivity : AppCompatActivity() {
             ) {
 
                 val responseBody = response.body()!!
-                jsonResponse.text = responseBody.toString()
-                jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
+                jsonResponseTextView.text = responseBody.toString()
+                jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
 
             }
 
             override fun onFailure(call: Call<List<BranchApiData>>, t: Throwable) {
-                jsonResponse.text = t.localizedMessage
-                jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+                jsonResponseTextView.text = t.localizedMessage
+                jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
 
             }
         })
@@ -84,7 +84,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
                 val apiBranchDataList = parseBranchesJsonArray(responseJsonArray)
                 runOnUiThread {
 
-                    jsonResponseTextView.text = body.toString()
+                    jsonResponseTextView.text = responseBody.toString()
                     jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
                     progressBar.visibility = View.INVISIBLE
                 }

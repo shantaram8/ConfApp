@@ -1,26 +1,25 @@
 package kz.kolesateam.confapp.events.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.fasterxml.jackson.databind.JsonNode
 import kz.kolesateam.confapp.R
-import kz.kolesateam.confapp.events.data.ApiClient
+import kz.kolesateam.confapp.events.data.models.BranchApiData
+import kz.kolesateam.confapp.events.data.models.EventApiData
+import kz.kolesateam.confapp.events.data.models.SpeakerApiData
+import kz.kolesateam.confapp.network.apiClient
+import kz.kolesateam.confapp.network.apiClientManual
+import okhttp3.ResponseBody
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
 
-
-val apiRetrofit: Retrofit = Retrofit.Builder()
-    .baseUrl("http://37.143.8.68:2020")
-    .addConverterFactory(JacksonConverterFactory.create())
-    .build()
-val apiClient: ApiClient = apiRetrofit.create(ApiClient::class.java)
 
 class UpcomingEventsActivity : AppCompatActivity() {
     private lateinit var jsonResponseTextView: TextView
@@ -51,26 +50,23 @@ class UpcomingEventsActivity : AppCompatActivity() {
 
     private fun loadApiDataAsync() {
         progressBar.visibility = View.VISIBLE
-        apiClient.getUpcomingEvents().enqueue(object : Callback<JsonNode> {
-            override fun onResponse(call: Call<JsonNode>, response: Response<JsonNode>) {
-                if (response.isSuccessful) {
-                    val body: JsonNode = response.body()!!
-                    jsonResponseTextView.text = body.toString()
-                    jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
-                } else {
-                    jsonResponseTextView.text = "Server response wasn't successful "
-                    jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
-                }
-                progressBar.visibility = View.INVISIBLE
-            }
+        apiClient.getUpcomingEvents().enqueue(object : Callback<List<BranchApiData>> {
+            override fun onResponse(
+                call: Call<List<BranchApiData>>,
+                response: Response<List<BranchApiData>>
+            ) {
 
-            override fun onFailure(call: Call<JsonNode>, t: Throwable) {
-                jsonResponseTextView.text = t.localizedMessage
-                jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
-                progressBar.visibility = View.INVISIBLE
+                val responseBody = response.body()!!
+                jsonResponse.text = responseBody.toString()
+                jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_async))
 
             }
 
+            override fun onFailure(call: Call<List<BranchApiData>>, t: Throwable) {
+                jsonResponse.text = t.localizedMessage
+                jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+
+            }
         })
     }
 
@@ -78,11 +74,16 @@ class UpcomingEventsActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         Thread {
             try {
-                runOnUiThread{
-                }
-                val response: Response<JsonNode> = apiClient.getUpcomingEvents().execute()
-                val body: JsonNode = response.body()!!
                 runOnUiThread {
+                    progressBar.visibility = View.VISIBLE
+                }
+                val response: Response<ResponseBody> = apiClientManual.getUpcomingEvents().execute()
+                val responseBody: ResponseBody = response.body()!!
+                val responseJsonString = responseBody.string()
+                val responseJsonArray = JSONArray(responseJsonString)
+                val apiBranchDataList = parseBranchesJsonArray(responseJsonArray)
+                runOnUiThread {
+
                     jsonResponseTextView.text = body.toString()
                     jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
                     progressBar.visibility = View.INVISIBLE
@@ -97,4 +98,77 @@ class UpcomingEventsActivity : AppCompatActivity() {
             }
         }.start()
     }
+
+    private fun parseBranchesJsonArray(
+        responseJsonArray: JSONArray
+    ): List<BranchApiData> {
+        val branchesList = mutableListOf<BranchApiData>()
+
+        for (ind in 0 until responseJsonArray.length()) {
+            val branchJsonObject = (responseJsonArray[ind] as? JSONObject) ?: continue
+
+            val apiBranchData = parseBranchJsonObject(branchJsonObject)
+
+            branchesList.add(apiBranchData)
+        }
+        return branchesList
+    }
+
+    private fun parseBranchJsonObject(
+        branchJsonObject: JSONObject
+    ): BranchApiData {
+        val id = branchJsonObject.getInt("id")
+        val title = branchJsonObject.getString("title")
+
+        val eventJsonArray = branchJsonObject.getJSONArray("events")
+        val apiEventsList = mutableListOf<EventApiData>()
+
+        for (ind in 0 until eventJsonArray.length()) {
+            val eventsJsonObject = (eventJsonArray[ind] as? JSONObject) ?: continue
+            val apiEventData = parseEventsJsonObject(eventsJsonObject)
+            apiEventsList.add(apiEventData)
+        }
+        return BranchApiData(
+            id = id,
+            title = title,
+            events = apiEventsList
+        )
+
+    }
+
+    private fun parseEventsJsonObject(eventJsonObject: JSONObject): EventApiData {
+        val id = eventJsonObject.getInt("id")
+        val title = eventJsonObject.getString("title")
+        val startTime = eventJsonObject.getString("startTime")
+        val endTime = eventJsonObject.getString("endTime")
+        val place = eventJsonObject.getString("place")
+        val description = eventJsonObject.getString("description")
+
+        val speakerJsonObject: JSONObject? = (eventJsonObject.get("speaker") as? JSONObject)
+        var speakerData: SpeakerApiData? = null
+
+        speakerJsonObject?.let {
+            speakerData = parseSpeakerJsonObject(it)
+        }
+
+        return EventApiData(
+            startTime = startTime,
+            endTime = endTime,
+            id = id,
+            title = title,
+            place = place,
+            description = description,
+            speaker = speakerData
+        )
+    }
+
+    private fun parseSpeakerJsonObject(
+        speakerJsonObject: JSONObject
+    ): SpeakerApiData = SpeakerApiData(
+        id = speakerJsonObject.getInt("id"),
+        fullName = speakerJsonObject.getString("fullName"),
+        job = speakerJsonObject.getString("job"),
+        photoUrl = speakerJsonObject.getString("photoUrl"),
+    )
+
 }

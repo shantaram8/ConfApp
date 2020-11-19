@@ -138,6 +138,10 @@ class UpcomingEventsActivity : AppCompatActivity() {
     private fun parseEventsJsonObject(eventJsonObject: JSONObject): EventApiData {
         val id = eventJsonObject.getInt("id")
         val title = eventJsonObject.getString("title")
+        val startTime = eventJsonObject.getString("startTime")
+        val endTime = eventJsonObject.getString("endTime")
+        val place = eventJsonObject.getString("place")
+        val description = eventJsonObject.getString("description")
 
         val speakerJsonObject: JSONObject? = (eventJsonObject.get("speaker") as? JSONObject)
         var speakerData: SpeakerApiData? = null
@@ -147,8 +151,12 @@ class UpcomingEventsActivity : AppCompatActivity() {
         }
 
         return EventApiData(
+            startTime = startTime,
+            endTime = endTime,
             id = id,
             title = title,
+            place = place,
+            description = description,
             speaker = speakerData
         )
     }
@@ -156,7 +164,10 @@ class UpcomingEventsActivity : AppCompatActivity() {
     private fun parseSpeakerJsonObject(
         speakerJsonObject: JSONObject
     ): SpeakerApiData = SpeakerApiData(
-        fullName = speakerJsonObject.getString("fullName")
+        id = speakerJsonObject.getInt("id"),
+        fullName = speakerJsonObject.getString("fullName"),
+        job = speakerJsonObject.getString("job"),
+        photoUrl = speakerJsonObject.getString("photoUrl"),
     )
 
 }

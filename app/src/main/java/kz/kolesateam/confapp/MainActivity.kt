@@ -42,8 +42,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-
     private fun navigateToUpcomingEventsScreen() {
         val upcomingEventsScreenIntent = Intent(this, UpcomingEventsActivity::class.java)
         startActivity(upcomingEventsScreenIntent)

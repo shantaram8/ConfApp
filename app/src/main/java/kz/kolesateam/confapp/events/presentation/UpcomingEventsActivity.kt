@@ -22,18 +22,16 @@ import retrofit2.Response
 
 
 class UpcomingEventsActivity : AppCompatActivity() {
-    private lateinit var jsonResponse: TextView
+    private lateinit var jsonResponseTextView: TextView
     private lateinit var asyncButton: Button
     private lateinit var syncButton: Button
     private lateinit var progressBar: ProgressBar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upcoming_events)
 
         bindViews()
-        progressBar.visibility = View.GONE
         asyncButton.setOnClickListener {
             loadApiDataAsync()
         }
@@ -44,8 +42,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
     }
 
     private fun bindViews() {
-
-        jsonResponse = findViewById(R.id.activity_upcoming_events_text_view)
+        jsonResponseTextView = findViewById(R.id.activity_upcoming_events_response_text_view)
         asyncButton = findViewById(R.id.activity_upcoming_events_async_button)
         syncButton = findViewById(R.id.activity_upcoming_events_sync_button)
         progressBar = findViewById(R.id.activity_upcoming_events_progress_bar)
@@ -68,11 +65,13 @@ class UpcomingEventsActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<BranchApiData>>, t: Throwable) {
                 jsonResponse.text = t.localizedMessage
                 jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+
             }
         })
     }
 
     private fun loadApiDataSync() {
+        progressBar.visibility = View.VISIBLE
         Thread {
             try {
                 runOnUiThread {
@@ -84,14 +83,16 @@ class UpcomingEventsActivity : AppCompatActivity() {
                 val responseJsonArray = JSONArray(responseJsonString)
                 val apiBranchDataList = parseBranchesJsonArray(responseJsonArray)
                 runOnUiThread {
+
+                    jsonResponseTextView.text = body.toString()
+                    jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
                     progressBar.visibility = View.INVISIBLE
-                    jsonResponse.text = apiBranchDataList.toString()
-                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_color_sync))
                 }
             } catch (ex: Exception) {
                 runOnUiThread {
-                    jsonResponse.text = ex.message.toString()
-                    jsonResponse.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+                    jsonResponseTextView.text = ex.message.toString()
+                    jsonResponseTextView.setTextColor(resources.getColor(R.color.upcoming_events_activity_text_view_error_color))
+                    progressBar.visibility = View.INVISIBLE
                 }
 
             }

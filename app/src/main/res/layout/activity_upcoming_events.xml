@@ -1,49 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top|center"
-    android:orientation="vertical"
-    tools:context=".events.presentation.UpcomingEventsActivity">
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/activity_upcoming_events_sync_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_upcoming_events_button_margin"
-            android:text="@string/activity_upcoming_events_sync_button_text" />
-
-        <Button
-            android:id="@+id/activity_upcoming_events_async_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_upcoming_events_button_margin"
-            android:text="@string/activity_upcoming_events_async_button_text" />
-    </LinearLayout>
+    >
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        >
 
-        <TextView
-            android:id="@+id/activity_upcoming_events_text_view"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_gravity="center|top"
+            android:orientation="vertical"
+            >
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                >
+
+                <Button
+                    android:id="@+id/activity_upcoming_events_sync_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_upcoming_events_button_margin"
+                    android:text="@string/activity_upcoming_events_sync_button_text"
+                    />
+
+                <Button
+                    android:id="@+id/activity_upcoming_events_async_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_upcoming_events_button_margin"
+                    android:text="@string/activity_upcoming_events_async_button_text"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/activity_upcoming_events_response_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                tools:text="Response will be here"
+                />
+
+        </LinearLayout>
     </ScrollView>
 
     <ProgressBar
         android:id="@+id/activity_upcoming_events_progress_bar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        />
 
-</LinearLayout>
+</FrameLayout>

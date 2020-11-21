@@ -1,7 +1,6 @@
 package kz.kolesateam.confapp.network
 
 import kz.kolesateam.confapp.events.data.ApiClient
-import kz.kolesateam.confapp.events.data.ApiClientManual
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
@@ -13,4 +12,3 @@ val apiRetrofit: Retrofit = Retrofit.Builder()
     .build()
 
 val apiClient: ApiClient = apiRetrofit.create(ApiClient::class.java)
-val apiClientManual: ApiClientManual = apiRetrofit.create(ApiClientManual::class.java)

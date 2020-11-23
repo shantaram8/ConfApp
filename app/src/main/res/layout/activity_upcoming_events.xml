@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        tools:listitem="@layout/branch_list_item"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />
 
@@ -27,11 +28,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_heart"
+        android:drawableStart="@drawable/ic_like_big"
         android:paddingHorizontal="16dp"
-        android:layout_marginBottom="47dp"
-        android:drawablePadding="4dp"
-        android:background="@drawable/bg_upcoming_events_activity_button_favourites"
+        android:layout_marginBottom="24dp"
+        android:drawablePadding="10dp"
+        android:background="@drawable/bg_upcoming_events_activity_favourites_button"
         android:text="В избранные"
         android:textSize="16dp"
         android:layout_gravity="bottom|center"

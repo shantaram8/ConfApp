@@ -4,24 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="24dp"
     android:layout_marginBottom="42dp"
+    android:background="@color/black"
     android:orientation="vertical"
+    android:paddingLeft="24dp"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:textColor="#DFA6A6"
-        tools:text="Android"
-        />
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            tools:text="Android"
+            />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_back_bold"
+            />
+    </LinearLayout>
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
         android:layout_marginTop="16dp"
+        android:scrollbars="none"
         >
 
         <LinearLayout
@@ -30,10 +46,16 @@
             android:orientation="horizontal"
             >
 
-            <include layout="@layout/event_card_item" />
+            <include
+                android:id="@+id/current_event_card"
+                layout="@layout/event_card_layout"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"/>
 
-            <include layout="@layout/event_card_item" />
-
+            <include
+                android:id="@+id/next_event_card"
+                layout="@layout/event_card_layout" />
         </LinearLayout>
     </HorizontalScrollView>
 

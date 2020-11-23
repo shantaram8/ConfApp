@@ -3,20 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="42dp"
-    android:background="@color/black"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="24dp"
+    android:background="@color/black"
+    android:paddingStart="24dp"
+    android:paddingEnd="0dp"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+
         >
 
         <TextView
+            android:id="@+id/branch_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="40dp"
         android:scrollbars="none"
         >
 
@@ -47,14 +50,14 @@
             >
 
             <include
-                android:id="@+id/current_event_card"
+                android:id="@+id/branch_current_event"
                 layout="@layout/event_card_layout"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"/>
 
             <include
-                android:id="@+id/next_event_card"
+                android:id="@+id/branch_next_event"
                 layout="@layout/event_card_layout" />
         </LinearLayout>
     </HorizontalScrollView>

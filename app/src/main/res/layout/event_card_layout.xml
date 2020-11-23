@@ -43,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_like_big"
+        android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="@id/event_date_place_text_view"
         app:layout_constraintLeft_toRightOf="@id/event_date_place_text_view"
         app:layout_constraintRight_toRightOf="parent"

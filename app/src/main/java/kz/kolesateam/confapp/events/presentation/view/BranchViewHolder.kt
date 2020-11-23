@@ -53,10 +53,10 @@ class BranchViewHolder(
             currentEvent.place
         )
 
-        currentEventDatePlace.text = nextEventDatePlaceText
-        currentSpeakerName.text = nextEvent.speaker?.fullName
-        currentSpeakerJob.text = nextEvent.speaker?.job
-        currentEventTitle.text = nextEvent.title
+       nextEventDatePlace.text = nextEventDatePlaceText
+       nextSpeakerName.text = nextEvent.speaker?.fullName
+       nextSpeakerJob.text = nextEvent.speaker?.job
+       nextEventTitle.text = nextEvent.title
     }
 
 }

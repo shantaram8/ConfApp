@@ -1,29 +1,43 @@
 package kz.kolesateam.confapp.events.presentation.view
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.events.data.models.BranchApiData
+import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 
-class UpcomingEventsAdapter: RecyclerView.Adapter<BranchViewHolder>() {
+class UpcomingEventsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val branchDataList: MutableList<BranchApiData> = mutableListOf()
+    private val branchDataList: MutableList<UpcomingEventListItem> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BranchViewHolder {
-        return BranchViewHolder(
-            itemView = View.inflate(parent.context, R.layout.branch_list_item, null)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when(viewType) {
+            1-> HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.header_layout, parent, false))
+            else -> BranchViewHolder(View.inflate(parent.context, R.layout.branch_list_item, null))
+
+        }
     }
 
-    override fun onBindViewHolder(holder: BranchViewHolder, position: Int) {
-        holder.onBind(branchDataList[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is HeaderViewHolder) {
+            holder.onBind(branchDataList[position].data as String)
+        }
+
+        if (holder is BranchViewHolder) {
+            holder.onBind(branchDataList[position].data as BranchApiData)
+        }
     }
 
     override fun getItemCount(): Int = branchDataList.size
 
+    override fun getItemViewType(position: Int): Int {
+        return branchDataList[position].type
+    }
+
     fun setList(
-        branchDataList: List<BranchApiData>
+        branchDataList: List<UpcomingEventListItem>
     ) {
         this.branchDataList.clear()
         this.branchDataList.addAll(branchDataList)

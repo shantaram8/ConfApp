@@ -38,7 +38,7 @@
         android:drawablePadding="10dp"
         android:background="@drawable/bg_upcoming_events_activity_favourites_button"
         android:text="В избранные"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_gravity="bottom|center"
         android:textColor="#2A81DD"
         android:textAllCaps="false"

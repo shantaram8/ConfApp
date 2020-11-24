@@ -1,19 +1,13 @@
 package kz.kolesateam.confapp.events.presentation
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.events.data.models.BranchApiData
 import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
 import kz.kolesateam.confapp.network.apiClient
-import kz.kolesateam.confapp.utils.model.ResponseData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

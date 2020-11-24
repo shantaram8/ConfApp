@@ -20,6 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:clipToPadding="false"
+        android:paddingBottom="65dp"
         tools:listitem="@layout/branch_list_item"
         tools:itemCount="5"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

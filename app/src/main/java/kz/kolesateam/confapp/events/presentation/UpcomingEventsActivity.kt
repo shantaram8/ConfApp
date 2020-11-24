@@ -1,9 +1,9 @@
 package kz.kolesateam.confapp.events.presentation
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.events.data.models.BranchApiData
@@ -32,13 +32,15 @@ class UpcomingEventsActivity : AppCompatActivity() {
     }
 
     private fun bindViews() {
-
+        progressBar = findViewById(R.id.activity_upcoming_events_progress_bar)
         recyclerView = findViewById(R.id.activity_upcoming_events_recycler_view)
         recyclerView.adapter = branchAdapter
     }
 
 
     private fun loadApiData() {
+        progressBar.visibility = View.VISIBLE
+
         apiClient.getUpcomingEvents().enqueue(object : Callback<List<BranchApiData>> {
             override fun onResponse(
                 call: Call<List<BranchApiData>>,
@@ -63,7 +65,9 @@ class UpcomingEventsActivity : AppCompatActivity() {
                     upcomingEventListItemList.addAll(branchListItemList)
 
                     branchAdapter.setList(upcomingEventListItemList)
+
                 }
+                progressBar.visibility = View.GONE
             }
 
             override fun onFailure(call: Call<List<BranchApiData>>, t: Throwable) {

@@ -9,6 +9,16 @@
     tools:context=".events.presentation.UpcomingEventsActivity"
     >
 
+    <ProgressBar
+        android:id="@+id/activity_upcoming_events_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateDrawable="@drawable/spinner_ring"
+        android:indeterminateOnly="true"
+        android:visibility="invisible"
+        />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

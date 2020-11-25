@@ -42,7 +42,7 @@
         android:id="@+id/to_favourite_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_like_big"
+        android:src="@drawable/ic_favorite_border"
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="@id/event_date_place_text_view"
         app:layout_constraintLeft_toRightOf="@id/event_date_place_text_view"

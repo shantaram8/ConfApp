@@ -3,6 +3,7 @@ package kz.kolesateam.confapp.events.presentation
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
@@ -26,9 +27,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upcoming_events)
         bindViews()
-
         loadApiData()
-
     }
 
     private fun bindViews() {

@@ -1,12 +1,15 @@
 package kz.kolesateam.confapp.events.presentation
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import kz.kolesateam.confapp.APPLICATION_KEY
 import kz.kolesateam.confapp.R
+import kz.kolesateam.confapp.SHARED_PREFERENCES_KEY
 import kz.kolesateam.confapp.events.data.models.BranchApiData
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
@@ -20,8 +23,9 @@ class UpcomingEventsActivity : AppCompatActivity() {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
-    private val branchAdapter: UpcomingEventsAdapter = UpcomingEventsAdapter()
+    private lateinit var sharedPreferences: SharedPreferences
 
+    private val branchAdapter: UpcomingEventsAdapter = UpcomingEventsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +56,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
                     val headerListItem: UpcomingEventListItem =
                         UpcomingEventListItem(
                             type = 1,
-                            data = "Andrey"
+                            data =  "Привет, ${getSavedUserName()}!"
                         )
                     val branchListItemList = response.body()!!.map { branchApiData ->
                         UpcomingEventListItem(
@@ -75,12 +79,10 @@ class UpcomingEventsActivity : AppCompatActivity() {
         })
     }
 
-    private fun showError(error: String) {
+    private fun getSavedUserName() : String {
 
-    }
-
-    private fun showResult(result: List<BranchApiData>) {
-
+        sharedPreferences = getSharedPreferences(APPLICATION_KEY, Context.MODE_PRIVATE)
+        return sharedPreferences.getString(SHARED_PREFERENCES_KEY, "Nothing")?: "Nothing"
     }
 }
 

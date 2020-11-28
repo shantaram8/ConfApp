@@ -11,6 +11,8 @@ import kz.kolesateam.confapp.APPLICATION_KEY
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.SHARED_PREFERENCES_KEY
 import kz.kolesateam.confapp.events.data.models.BranchApiData
+import kz.kolesateam.confapp.events.data.models.BranchListItem
+import kz.kolesateam.confapp.events.data.models.HeaderItem
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
 import kz.kolesateam.confapp.network.apiClient
@@ -69,16 +71,14 @@ class UpcomingEventsActivity : AppCompatActivity() {
         branchAdapter.setList(upcomingEventListItemList)
     }
 
-    private fun getHeaderItem(): UpcomingEventListItem = UpcomingEventListItem(
-        type = 1,
-        data = getString(R.string.hello_text_fmt, getSavedUserName())
+    private fun getHeaderItem(): UpcomingEventListItem = HeaderItem(
+        userName = getString(R.string.hello_text_fmt, getSavedUserName())
     )
 
     private fun getBranchItems(
         branchList: List<BranchApiData>
     ): List<UpcomingEventListItem> = branchList.map { branchApiData ->
-        UpcomingEventListItem(
-            type = 2,
+        BranchListItem(
             data = branchApiData
         )
     }

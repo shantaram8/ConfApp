@@ -2,14 +2,15 @@ package kz.kolesateam.confapp.events.presentation.view
 
 import android.view.View
 import android.widget.*
-import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.events.data.models.BranchApiData
+import kz.kolesateam.confapp.events.data.models.BranchListItem
 import kz.kolesateam.confapp.events.data.models.EventApiData
+import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 
 class BranchViewHolder(
     itemView: View
-) : RecyclerView.ViewHolder(itemView) {
+) : BaseViewHolder<UpcomingEventListItem>(itemView) {
 
     private val currentBranchEvent: View = itemView.findViewById(R.id.branch_current_event)
     private val nextBranchEvent: View = itemView.findViewById(R.id.branch_next_event)
@@ -17,7 +18,8 @@ class BranchViewHolder(
     private val branchLinearLayout: LinearLayout = itemView.findViewById(R.id.branch_linear_layout)
     private val branchTitle: TextView = itemView.findViewById(R.id.branch_title)
 
-    private val toFavouritesImageView: ImageView = itemView.findViewById(R.id.to_favourite_image_view)
+    private val toFavouritesImageView: ImageView =
+        itemView.findViewById(R.id.to_favourite_image_view)
 
     private val currentEventDatePlace: TextView =
         currentBranchEvent.findViewById(R.id.event_date_place_text_view)
@@ -41,9 +43,9 @@ class BranchViewHolder(
             View.INVISIBLE
     }
 
-    fun onBind(
-        branchApiData: BranchApiData,
-    ) {
+    override fun onBind(data: UpcomingEventListItem) {
+
+        val branchApiData: BranchApiData = (data as? BranchListItem)?.data ?: return
 
         branchTitle.text = branchApiData.title
         val currentEvent: EventApiData = branchApiData.events.first()
@@ -78,7 +80,7 @@ class BranchViewHolder(
             Toast.makeText(it.context, currentEventTitle.text, Toast.LENGTH_SHORT).show()
         }
         toFavouritesImageView.setOnClickListener {
-                toFavouritesImageView.setImageResource(R.drawable.ic_favorite_fill)
+            toFavouritesImageView.setImageResource(R.drawable.ic_favorite_fill)
         }
     }
 }

@@ -51,24 +51,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
             ) {
 
                 if (response.isSuccessful) {
-                    val upcomingEventListItemList: MutableList<UpcomingEventListItem> =
-                        mutableListOf()
-                    val headerListItem: UpcomingEventListItem =
-                        UpcomingEventListItem(
-                            type = 1,
-                            data =  "Привет, ${getSavedUserName()}!"
-                        )
-                    val branchListItemList = response.body()!!.map { branchApiData ->
-                        UpcomingEventListItem(
-                            type = 2,
-                            data = branchApiData
-                        )
-                    }
-                    upcomingEventListItemList.add(headerListItem)
-                    upcomingEventListItemList.addAll(branchListItemList)
-
-                    branchAdapter.setList(upcomingEventListItemList)
-
+                    fillAdapterList(response.body()!!)
                 }
                 progressBar.visibility = View.GONE
             }
@@ -79,10 +62,31 @@ class UpcomingEventsActivity : AppCompatActivity() {
         })
     }
 
-    private fun getSavedUserName() : String {
+    private fun fillAdapterList(branchList: List<BranchApiData>) {
+        val upcomingEventListItemList: List<UpcomingEventListItem> =
+            listOf(getHeaderItem()) + getBranchItems(branchList)
+
+        branchAdapter.setList(upcomingEventListItemList)
+    }
+
+    private fun getHeaderItem(): UpcomingEventListItem = UpcomingEventListItem(
+        type = 1,
+        data = getString(R.string.hello_text_fmt, getSavedUserName())
+    )
+
+    private fun getBranchItems(
+        branchList: List<BranchApiData>
+    ): List<UpcomingEventListItem> = branchList.map { branchApiData ->
+        UpcomingEventListItem(
+            type = 2,
+            data = branchApiData
+        )
+    }
+
+    private fun getSavedUserName(): String {
 
         sharedPreferences = getSharedPreferences(APPLICATION_KEY, Context.MODE_PRIVATE)
-        return sharedPreferences.getString(SHARED_PREFERENCES_KEY, "Nothing")?: "Nothing"
+        return sharedPreferences.getString(SHARED_PREFERENCES_KEY, "Nothing") ?: "Nothing"
     }
 }
 

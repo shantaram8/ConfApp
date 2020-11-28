@@ -12,7 +12,7 @@
         android:id="@+id/branch_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="@dimen/view_margin_24x"
         android:orientation="horizontal"
 
         >
@@ -23,14 +23,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/view_title_text_size"
             tools:text="Android"
             />
 
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:padding="4dp"
+            android:padding="@dimen/view_padding_4x"
             android:src="@drawable/ic_arrow_back_bold"
             />
     </LinearLayout>
@@ -38,7 +38,7 @@
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/view_margin_16x"
         android:layout_marginBottom="40dp"
         android:scrollbars="none"
         >
@@ -54,8 +54,8 @@
                 layout="@layout/event_card_layout"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/view_margin_24x"
+                android:layout_marginEnd="@dimen/view_margin8x"
                 />
 
             <include

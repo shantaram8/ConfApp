@@ -43,14 +43,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_favorite_border"
-        android:paddingHorizontal="16dp"
-        android:layout_marginBottom="24dp"
+        android:paddingHorizontal="@dimen/view_padding_16x"
+        android:layout_marginBottom="@dimen/view_margin_24x"
         android:drawablePadding="10dp"
         android:background="@drawable/bg_upcoming_events_activity_favourites_button"
         android:text="В избранные"
-        android:textSize="16sp"
+        android:textSize="@dimen/view_button_text_size"
         android:layout_gravity="bottom|center"
-        android:textColor="#2A81DD"
+        android:textColor="@color/activity_upcoming_events_button_text_color"
         android:textAllCaps="false"
         />
 

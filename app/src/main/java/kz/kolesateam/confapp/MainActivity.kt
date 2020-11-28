@@ -12,7 +12,7 @@ import kz.kolesateam.confapp.events.presentation.UpcomingEventsActivity
 
 
 const val APPLICATION_KEY = "application"
-const val SHARED_PREFERENCES_KEY = "application"
+const val SHARED_PREFERENCES_KEY = "user_name"
 
 class MainActivity : AppCompatActivity() {
     private val continueButton: Button by lazy {
@@ -29,8 +29,7 @@ class MainActivity : AppCompatActivity() {
 
 
         mainActivityNameEditText.addTextChangedListener((object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
-                Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 

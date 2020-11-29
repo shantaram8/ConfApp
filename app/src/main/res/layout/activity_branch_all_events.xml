@@ -9,11 +9,6 @@
     tools:context=".events.presentation.UpcomingEventsActivity"
     >
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/bg"
-        />
 
     <LinearLayout
         android:id="@+id/activity_all_upcoming_events_header_linear_layout"
@@ -22,6 +17,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/view_padding_16x"
         >
+
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -31,15 +27,24 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_logo_white"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_logo_white"
             />
 
     </LinearLayout>
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_branch_all_events_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:clipToPadding="false"
+        android:paddingVertical="65dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/branch_all_events_card_item"
+        />
 
     <Button
         android:layout_width="wrap_content"
@@ -54,6 +59,12 @@
         android:textAllCaps="false"
         android:textColor="@color/activity_upcoming_events_button_text_color"
         android:textSize="@dimen/view_button_text_size"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg"
         />
 
 

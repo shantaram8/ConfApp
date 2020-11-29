@@ -31,7 +31,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:padding="@dimen/view_padding_4x"
-            android:src="@drawable/ic_arrow_back_bold"
+            android:src="@drawable/ic_arrow_forward_bold"
             />
     </LinearLayout>
 

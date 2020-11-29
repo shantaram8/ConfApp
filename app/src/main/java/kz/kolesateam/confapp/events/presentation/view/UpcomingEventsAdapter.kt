@@ -1,11 +1,9 @@
 package kz.kolesateam.confapp.events.presentation.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
-import kz.kolesateam.confapp.events.data.models.BranchApiData
 import kz.kolesateam.confapp.events.data.models.HEADER_TYPE
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 

@@ -14,8 +14,8 @@ import kz.kolesateam.confapp.events.data.models.BranchApiData
 import kz.kolesateam.confapp.events.data.models.BranchListItem
 import kz.kolesateam.confapp.events.data.models.HeaderItem
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
-import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
 import kz.kolesateam.confapp.network.apiClient
+import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

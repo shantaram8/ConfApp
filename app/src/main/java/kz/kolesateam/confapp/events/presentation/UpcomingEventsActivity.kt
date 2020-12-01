@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.events.domain.UpcomingEventsRepository
 import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
@@ -33,18 +37,20 @@ class UpcomingEventsActivity : AppCompatActivity() {
     }
 
     private fun getUpcomingEvents() {
-        Thread {
-            val upcomingEventsResponse = upcomingEventsRepository.getUpcomingEvents()
-            if (upcomingEventsResponse is ResponseData.Success) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = withContext(Dispatchers.IO) {
+                upcomingEventsRepository.getUpcomingEvents()
+            }
+            if (response is ResponseData.Success) {
                 runOnUiThread {
-                    adapter.setList(upcomingEventsResponse.result)
+                    adapter.setList(response.result)
                 }
             } else {
-                val errorResponse = upcomingEventsResponse as ResponseData.Error
+                val errorResponse = response as ResponseData.Error
                 //progressBar Gone
 
             }
-        }.run()
+        }
     }
 
 

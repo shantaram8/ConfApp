@@ -1,21 +1,23 @@
 package kz.kolesateam.confapp.events.presentation
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import kz.kolesateam.confapp.APPLICATION_KEY
 import kz.kolesateam.confapp.R
-import kz.kolesateam.confapp.SHARED_PREFERENCES_KEY
+import kz.kolesateam.confapp.di.SHARED_PREFS_DATA_SOURCE
+import kz.kolesateam.confapp.events.data.datasources.UpcomingEventsRepository
+import kz.kolesateam.confapp.events.data.datasources.UserNameDataSource
+import kz.kolesateam.confapp.events.data.datasources.UserNameSharedPrefsDataSource
 import kz.kolesateam.confapp.events.data.models.BranchApiData
 import kz.kolesateam.confapp.events.data.models.BranchListItem
 import kz.kolesateam.confapp.events.data.models.HeaderItem
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
-import kz.kolesateam.confapp.network.apiClient
+import kz.kolesateam.confapp.network.UPCOMING_EVENTS_DATA_SOURCE
 import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
+import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,11 +25,12 @@ import retrofit2.Response
 
 class UpcomingEventsActivity : AppCompatActivity() {
 
+    private val upcomingEventsRepository: UpcomingEventsRepository by inject()
+    private val userNameDataSource: UserNameDataSource by inject(named(SHARED_PREFS_DATA_SOURCE))
+
+    private val branchAdapter = UpcomingEventsAdapter()
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
-    private lateinit var sharedPreferences: SharedPreferences
-
-    private val branchAdapter: UpcomingEventsAdapter = UpcomingEventsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +49,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
     private fun loadApiData() {
         progressBar.visibility = View.VISIBLE
 
-        apiClient.getUpcomingEvents().enqueue(object : Callback<List<BranchApiData>> {
+        UPCOMING_EVENTS_DATA_SOURCE.getUpcomingEvents().enqueue(object : Callback<List<BranchApiData>> {
             override fun onResponse(
                 call: Call<List<BranchApiData>>,
                 response: Response<List<BranchApiData>>
@@ -72,7 +75,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
     }
 
     private fun getHeaderItem(): UpcomingEventListItem = HeaderItem(
-        userName = getString(R.string.hello_text_fmt, getSavedUserName())
+        userName = getString(R.string.hello_text_fmt, userNameDataSource.getSavedUserName())
     )
 
     private fun getBranchItems(
@@ -83,10 +86,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
         )
     }
 
-    private fun getSavedUserName(): String {
 
-        sharedPreferences = getSharedPreferences(APPLICATION_KEY, Context.MODE_PRIVATE)
-        return sharedPreferences.getString(SHARED_PREFERENCES_KEY, "Nothing") ?: "Nothing"
-    }
 }
+
 

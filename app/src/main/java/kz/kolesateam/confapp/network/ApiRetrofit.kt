@@ -1,6 +1,6 @@
 package kz.kolesateam.confapp.network
 
-import kz.kolesateam.confapp.events.data.ApiClient
+import kz.kolesateam.confapp.events.data.datasources.UpcomingEventsDataSource
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
@@ -11,4 +11,5 @@ val apiRetrofit: Retrofit = Retrofit.Builder()
     .addConverterFactory(JacksonConverterFactory.create())
     .build()
 
-val apiClient: ApiClient = apiRetrofit.create(ApiClient::class.java)
+val UPCOMING_EVENTS_DATA_SOURCE: UpcomingEventsDataSource = apiRetrofit.create(
+    UpcomingEventsDataSource::class.java)

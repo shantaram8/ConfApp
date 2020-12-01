@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import kz.kolesateam.confapp.di.MEMORY_DATA_SOURCE
 import kz.kolesateam.confapp.di.SHARED_PREFS_DATA_SOURCE
 import kz.kolesateam.confapp.events.data.datasources.UserNameDataSource
 import kz.kolesateam.confapp.events.presentation.UpcomingEventsActivity
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private val mainActivityNameEditText: EditText by lazy {
         findViewById(R.id.activity_main_edit_text)
     }
-    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

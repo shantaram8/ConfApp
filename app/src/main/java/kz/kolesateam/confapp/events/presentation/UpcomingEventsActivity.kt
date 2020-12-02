@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.R
-import kz.kolesateam.confapp.events.domain.UpcomingEventsRepository
+import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
-import kz.kolesateam.confapp.utils.model.ResponseData
-import org.koin.android.ext.android.inject
+import kz.kolesateam.confapp.models.ProgressState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class UpcomingEventsActivity : AppCompatActivity() {
 
-    private val upcomingEventsRepository: UpcomingEventsRepository by inject()
+    private val upcomingEventsViewModel: UpcomingEventsViewModel by viewModel()
+
 
     private val adapter = UpcomingEventsAdapter()
     private lateinit var progressBar: ProgressBar
@@ -28,27 +26,42 @@ class UpcomingEventsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upcoming_events)
         bindViews()
-        getUpcomingEvents()
+
     }
 
     private fun bindViews() {
         progressBar = findViewById(R.id.activity_upcoming_events_progress_bar)
         recyclerView = findViewById(R.id.activity_upcoming_events_recycler_view)
         recyclerView.adapter = adapter
+
+        observeUpcomingEventsViewModel()
+        upcomingEventsViewModel.onStart()
+
     }
 
-    private fun getUpcomingEvents() {
-        GlobalScope.launch(Dispatchers.Main) {
-            val response = withContext(Dispatchers.IO) {
-                upcomingEventsRepository.getUpcomingEvents()
-            }
-            when(response) {
-                is ResponseData.Success-> adapter.setList(response.result)
-                else -> showError()
-            }
-        }
+    private fun observeUpcomingEventsViewModel() {
+        upcomingEventsViewModel.getProgressLiveData().observe(this, {
+            handleProgressBarState(it)
+        })
+        upcomingEventsViewModel.getUpcomingEventsLiveData().observe(this, {
+            showResult(it)
+        })
+        upcomingEventsViewModel.getErrorLiveData().observe(this, {
+            showError(it)
+        })
     }
-    private fun showError() {
+
+    private fun handleProgressBarState (
+        progressState: ProgressState
+    ) {
+        progressBar.isVisible = progressState is ProgressState.Loading
+    }
+
+
+    private fun showResult(upcomingEventList: List<UpcomingEventListItem>) {
+        adapter.setList(upcomingEventList)
+    }
+    private fun showError(error: Exception) {
         Toast.makeText(this, "Error occurred", Toast.LENGTH_LONG).show()
     }
 }

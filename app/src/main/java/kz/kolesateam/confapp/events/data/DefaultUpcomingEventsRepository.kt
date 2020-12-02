@@ -7,7 +7,7 @@ import kz.kolesateam.confapp.events.data.models.BranchListItem
 import kz.kolesateam.confapp.events.data.models.HeaderItem
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 import kz.kolesateam.confapp.events.domain.UpcomingEventsRepository
-import kz.kolesateam.confapp.utils.model.ResponseData
+import kz.kolesateam.confapp.models.ResponseData
 
 class DefaultUpcomingEventsRepository(
     private val upcomingEventsDataSource: UpcomingEventsDataSource,

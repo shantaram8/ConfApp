@@ -1,7 +1,10 @@
 package kz.kolesateam.confapp.di
 
+import kz.kolesateam.confapp.events.data.DefaultBranchAllEventsRepository
 import kz.kolesateam.confapp.events.data.DefaultUpcomingEventsRepository
+import kz.kolesateam.confapp.events.data.datasources.BranchAllEventsDataSource
 import kz.kolesateam.confapp.events.data.datasources.UpcomingEventsDataSource
+import kz.kolesateam.confapp.events.domain.BranchAllEventsRepository
 import kz.kolesateam.confapp.events.domain.UpcomingEventsRepository
 import kz.kolesateam.confapp.events.presentation.UpcomingEventsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -33,11 +36,19 @@ val eventScreenModule: Module = module {
 
         retrofit.create(UpcomingEventsDataSource::class.java)
     }
+    single {
+        val retrofit:Retrofit = get()
+
+        retrofit.create(BranchAllEventsDataSource::class.java)
+    }
 
     factory {
         DefaultUpcomingEventsRepository(
             upcomingEventsDataSource = get(),
             userNameDataSource = get(named(SHARED_PREFS_DATA_SOURCE))
         ) as UpcomingEventsRepository
+        DefaultBranchAllEventsRepository(
+            branchAllEventsDataSource = get()
+        ) as BranchAllEventsRepository
     }
 }

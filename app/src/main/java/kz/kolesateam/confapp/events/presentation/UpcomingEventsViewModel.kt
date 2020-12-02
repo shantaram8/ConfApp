@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 import kz.kolesateam.confapp.events.domain.UpcomingEventsRepository
 import kz.kolesateam.confapp.models.ProgressState
-import kz.kolesateam.confapp.utils.model.ResponseData
+import kz.kolesateam.confapp.models.ResponseData
 
 class UpcomingEventsViewModel(
     private val upcomingEventsRepository: UpcomingEventsRepository

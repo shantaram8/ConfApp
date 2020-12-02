@@ -1,4 +1,4 @@
-package kz.kolesateam.confapp.utils.model
+package kz.kolesateam.confapp.models
 
 
 sealed class ResponseData<out Result, out Error> {
@@ -9,5 +9,5 @@ sealed class ResponseData<out Result, out Error> {
 
     data class Error<Error>(
         val error: Error
-    ): ResponseData<Nothing, Error> ()
+    ): ResponseData<Nothing, Error>()
 }

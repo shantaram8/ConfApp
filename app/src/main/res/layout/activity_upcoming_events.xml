@@ -38,7 +38,6 @@
         />
 
 
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,6 +52,4 @@
         android:textColor="@color/activity_upcoming_events_button_text_color"
         android:textAllCaps="false"
         />
-
-
 </FrameLayout>

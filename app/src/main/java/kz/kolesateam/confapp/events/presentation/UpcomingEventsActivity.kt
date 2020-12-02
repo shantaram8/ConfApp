@@ -51,7 +51,6 @@ class UpcomingEventsActivity : AppCompatActivity() {
                 call: Call<List<BranchApiData>>,
                 response: Response<List<BranchApiData>>
             ) {
-
                 if (response.isSuccessful) {
                     fillAdapterList(response.body()!!)
                 }

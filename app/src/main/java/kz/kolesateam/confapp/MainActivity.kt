@@ -46,12 +46,11 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     private fun saveUserName(userName: String) {
         preferences = getSharedPreferences(APPLICATION_KEY, MODE_PRIVATE)
         preferences.edit().putString(SHARED_PREFERENCES_KEY, userName).apply()
     }
-
+  
     private fun navigateToUpcomingEventsScreen() {
         val upcomingEventsScreenIntent = Intent(this, UpcomingEventsActivity::class.java)
         startActivity(upcomingEventsScreenIntent)

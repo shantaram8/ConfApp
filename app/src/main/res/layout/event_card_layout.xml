@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_event_card_item"
+    android:paddingHorizontal="@dimen/view_padding_16x"
+    android:paddingBottom="@dimen/view_padding_16x"
+    >
+
+    <TextView
+        android:id="@+id/next_event_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_event_card_item_next_event_text_view"
+        android:paddingHorizontal="5dp"
+        android:text="Следующий доклад"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/event_date_place_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_margin8x"
+        android:textSize="@dimen/view_text_size_14x"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/to_favourite_image_view"
+        app:layout_constraintTop_toBottomOf="@id/next_event_text_view"
+        tools:text="17:00 • Зал 3"
+        />
+
+    <ImageView
+        android:id="@+id/to_favourite_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_favorite_border"
+        android:padding="@dimen/view_padding_4x"
+        app:layout_constraintBottom_toBottomOf="@id/event_date_place_text_view"
+        app:layout_constraintLeft_toRightOf="@id/event_date_place_text_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/event_date_place_text_view"
+        />
+
+    <TextView
+        android:id="@+id/speaker_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_margin8x"
+        android:textColor="@color/main_text"
+        android:textSize="@dimen/view_text_size_14x"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_date_place_text_view"
+        tools:text="Васян Пупков"
+        />
+
+    <TextView
+        android:id="@+id/speaker_job_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/speaker_name_text_view"
+        tools:text="Android developer. Kolesa Group"
+        />
+
+    <TextView
+        android:id="@+id/event_title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/view_margin8x"
+        android:ellipsize="end"
+        android:lines="3"
+        android:maxLines="3"
+        android:textColor="#1C1819"
+        android:textSize="@dimen/view_text_size_14x"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/speaker_job_text_view"
+        tools:text="Борьба за независимость в многомодульных приложениях"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

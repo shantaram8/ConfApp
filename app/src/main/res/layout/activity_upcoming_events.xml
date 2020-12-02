@@ -1,64 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".events.presentation.UpcomingEventsActivity"
     >
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:orientation="vertical"
-            >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                >
-
-                <Button
-                    android:id="@+id/activity_upcoming_events_sync_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/activity_upcoming_events_button_margin"
-                    android:text="@string/activity_upcoming_events_sync_button_text"
-                    />
-
-                <Button
-                    android:id="@+id/activity_upcoming_events_async_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/activity_upcoming_events_button_margin"
-                    android:text="@string/activity_upcoming_events_async_button_text"
-                    />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/activity_upcoming_events_response_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                tools:text="Response will be here"
-                />
-
-        </LinearLayout>
-    </ScrollView>
 
     <ProgressBar
         android:id="@+id/activity_upcoming_events_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:indeterminateDrawable="@drawable/spinner_ring"
+        android:indeterminateOnly="true"
         android:visibility="invisible"
         />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_upcoming_events_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:clipToPadding="false"
+        android:paddingBottom="65dp"
+        tools:listitem="@layout/branch_list_item"
+        tools:itemCount="5"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_favorite_border"
+        android:paddingHorizontal="@dimen/view_padding_16x"
+        android:layout_marginBottom="@dimen/view_margin_24x"
+        android:drawablePadding="10dp"
+        android:background="@drawable/bg_upcoming_events_activity_favourites_button"
+        android:text="В избранные"
+        android:textSize="@dimen/view_button_text_size"
+        android:layout_gravity="bottom|center"
+        android:textColor="@color/activity_upcoming_events_button_text_color"
+        android:textAllCaps="false"
+        />
 </FrameLayout>

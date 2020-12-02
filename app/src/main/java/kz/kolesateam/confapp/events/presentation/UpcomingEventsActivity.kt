@@ -2,6 +2,7 @@ package kz.kolesateam.confapp.events.presentation
 
 import android.os.Bundle
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
@@ -41,19 +42,15 @@ class UpcomingEventsActivity : AppCompatActivity() {
             val response = withContext(Dispatchers.IO) {
                 upcomingEventsRepository.getUpcomingEvents()
             }
-            if (response is ResponseData.Success) {
-                runOnUiThread {
-                    adapter.setList(response.result)
-                }
-            } else {
-                val errorResponse = response as ResponseData.Error
-                //progressBar Gone
-
+            when(response) {
+                is ResponseData.Success-> adapter.setList(response.result)
+                else -> showError()
             }
         }
     }
-
-
+    private fun showError() {
+        Toast.makeText(this, "Error occurred", Toast.LENGTH_LONG).show()
+    }
 }
 
 

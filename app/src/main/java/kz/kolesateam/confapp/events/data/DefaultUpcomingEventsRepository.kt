@@ -15,18 +15,18 @@ class DefaultUpcomingEventsRepository(
 ) : UpcomingEventsRepository {
 
     override fun getUpcomingEvents(): ResponseData<List<UpcomingEventListItem>, Exception> {
-        try {
+        return try {
             val response = upcomingEventsDataSource.getUpcomingEvents().execute()
 
             if (response.isSuccessful) {
                 val upcomingEventListItemList: List<UpcomingEventListItem> =
                     listOf(getHeaderItem()) + getBranchItems(response.body()!!)
-                return ResponseData.Success(upcomingEventListItemList)
+                ResponseData.Success(upcomingEventListItemList)
             } else {
-                return ResponseData.Error(Exception("Response not successful"))
+                ResponseData.Error(Exception("Response not successful"))
             }
         } catch (e: Exception) {
-            return ResponseData.Error(e)
+            ResponseData.Error(e)
         }
 
     }

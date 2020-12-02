@@ -36,7 +36,6 @@ class UpcomingEventsActivity : AppCompatActivity() {
 
         observeUpcomingEventsViewModel()
         upcomingEventsViewModel.onStart()
-
     }
 
     private fun observeUpcomingEventsViewModel() {

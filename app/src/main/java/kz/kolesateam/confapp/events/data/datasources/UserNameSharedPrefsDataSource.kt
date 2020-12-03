@@ -10,7 +10,7 @@ class UserNameSharedPrefsDataSource(
     private val sharedPreferences: SharedPreferences
 ) : UserNameDataSource {
 
-    override fun getSavedUserName(): String? = sharedPreferences
+    override fun getSavedUserName(): String = sharedPreferences
         .getString(SHARED_PREFERENCES_KEY, EMPTY_STRING) ?: DEFAULT_USER_NAME
 
     override fun saveUserName(

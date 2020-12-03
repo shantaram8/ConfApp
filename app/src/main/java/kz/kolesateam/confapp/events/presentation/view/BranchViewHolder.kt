@@ -1,29 +1,18 @@
 package kz.kolesateam.confapp.events.presentation.view
 
-import android.content.Context
-import android.content.Intent
 import android.view.View
 import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.R
-import kz.kolesateam.confapp.events.data.DefaultBranchAllEventsRepository
 import kz.kolesateam.confapp.events.data.models.BranchApiData
 import kz.kolesateam.confapp.events.data.models.BranchListItem
 import kz.kolesateam.confapp.events.data.models.EventApiData
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
-import kz.kolesateam.confapp.events.domain.BranchAllEventsRepository
-import kz.kolesateam.confapp.events.presentation.BranchAllEventsActivity
-import kz.kolesateam.confapp.events.presentation.UpcomingEventsActivity
-import kz.kolesateam.confapp.models.ProgressState
-import kz.kolesateam.confapp.models.ResponseData
 
 class BranchViewHolder(
     itemView: View,
+    private val upcomingEventsClickListeners: UpcomingEventsClickListeners
 ) : BaseViewHolder<UpcomingEventListItem>(itemView) {
+
 
     private val currentBranchEvent: View = itemView.findViewById(R.id.branch_current_event)
     private val nextBranchEvent: View = itemView.findViewById(R.id.branch_next_event)
@@ -56,9 +45,7 @@ class BranchViewHolder(
             View.INVISIBLE
     }
 
-    override fun onBind(
-        data: UpcomingEventListItem
-    ) {
+    override fun onBind(data: UpcomingEventListItem) {
 
         val branchApiData: BranchApiData = (data as? BranchListItem)?.data ?: return
 
@@ -90,10 +77,8 @@ class BranchViewHolder(
 
 
 
-        branchTitle.setOnClickListener {
-            val intent: Intent = Intent(it.context, BranchAllEventsActivity::class.java)
-            it.context.startActivity(intent)
-
+        branchLinearLayout.setOnClickListener {
+            upcomingEventsClickListeners.onBranchClick(data)
         }
         currentBranchEvent.setOnClickListener {
             Toast.makeText(it.context, currentEventTitle.text, Toast.LENGTH_SHORT).show()

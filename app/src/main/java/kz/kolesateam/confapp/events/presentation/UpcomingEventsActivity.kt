@@ -1,5 +1,6 @@
 package kz.kolesateam.confapp.events.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -7,17 +8,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
+import kz.kolesateam.confapp.events.data.models.BranchListItem
+import kz.kolesateam.confapp.events.data.models.EventApiData
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsAdapter
+import kz.kolesateam.confapp.events.presentation.view.UpcomingEventsClickListeners
 import kz.kolesateam.confapp.models.ProgressState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class UpcomingEventsActivity : AppCompatActivity() {
+class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners {
 
     private val upcomingEventsViewModel: UpcomingEventsViewModel by viewModel()
 
-    private val upcomingEventsAdapter = UpcomingEventsAdapter()
+    private val upcomingEventsAdapter = UpcomingEventsAdapter(this)
 
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
@@ -62,6 +66,22 @@ class UpcomingEventsActivity : AppCompatActivity() {
 
     private fun showError(error: Exception) {
         Toast.makeText(this, "Error occurred", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onBranchClick(branchData: BranchListItem) {
+        val intent: Intent = Intent(this, BranchAllEventsActivity::class.java)
+        intent.putExtra("branch_id", branchData.data.id)
+        startActivity(intent)
+    }
+
+    override fun onEventClick(eventData: EventApiData) {
+    }
+
+    override fun onAddToFavoritesClick(eventData: EventApiData) {
+    }
+
+    override fun onFavoritesButtonClick() {
+
     }
 
 

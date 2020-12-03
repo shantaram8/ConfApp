@@ -9,19 +9,18 @@ class DefaultBranchAllEventsRepository(
     private val branchAllEventsDataSource: BranchAllEventsDataSource
 ) : BranchAllEventsRepository {
 
-    override fun getBranchAllEvents(): ResponseData<List<EventApiData>, Exception> {
-        try {
-            val branchId = 0
+    override fun getBranchAllEvents(branchId: Int): ResponseData<List<EventApiData>, Exception> {
+        return try {
             val responseData = branchAllEventsDataSource.getBranchAllEvents(branchId).execute()
             if (responseData.isSuccessful) {
                 val eventApiDataList: List<EventApiData> = responseData.body()!!
                 ResponseData.Success(eventApiDataList)
             } else {
-                ResponseData.Error(Exception("Response from Branch all events isn't successful"))
+                val exception = Exception("Response from Branch all events isn't successful")
+                ResponseData.Error(exception)
             }
         } catch (e: Exception) {
             ResponseData.Error(e)
         }
-
     }
 }

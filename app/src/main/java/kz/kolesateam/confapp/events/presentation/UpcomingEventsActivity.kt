@@ -17,8 +17,8 @@ class UpcomingEventsActivity : AppCompatActivity() {
 
     private val upcomingEventsViewModel: UpcomingEventsViewModel by viewModel()
 
+    private val upcomingEventsAdapter = UpcomingEventsAdapter()
 
-    private val adapter = UpcomingEventsAdapter()
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
 
@@ -32,7 +32,7 @@ class UpcomingEventsActivity : AppCompatActivity() {
     private fun bindViews() {
         progressBar = findViewById(R.id.activity_upcoming_events_progress_bar)
         recyclerView = findViewById(R.id.activity_upcoming_events_recycler_view)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = upcomingEventsAdapter
 
         observeUpcomingEventsViewModel()
         upcomingEventsViewModel.onStart()
@@ -56,13 +56,15 @@ class UpcomingEventsActivity : AppCompatActivity() {
         progressBar.isVisible = progressState is ProgressState.Loading
     }
 
-
     private fun showResult(upcomingEventList: List<UpcomingEventListItem>) {
-        adapter.setList(upcomingEventList)
+        upcomingEventsAdapter.setList(upcomingEventList)
     }
+
     private fun showError(error: Exception) {
         Toast.makeText(this, "Error occurred", Toast.LENGTH_LONG).show()
     }
+
+
 }
 
 

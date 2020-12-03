@@ -9,7 +9,7 @@ interface BranchAllEventsDataSource {
 
     @GET("/branch_events/{branchId}")
     fun getBranchAllEvents(
-        @Path("branchId") branchId: Int
+        @Path("branchId") branchId: Int = 0
     ): Call<List<EventApiData>>
 
 }

@@ -17,6 +17,7 @@
         android:usesCleartextTraffic="true"
         >
         <activity android:name=".events.presentation.UpcomingEventsActivity" />
+        <activity android:name=".events.presentation.BranchAllEventsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

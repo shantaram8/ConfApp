@@ -1,15 +1,28 @@
 package kz.kolesateam.confapp.events.presentation.view
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.R
+import kz.kolesateam.confapp.events.data.DefaultBranchAllEventsRepository
 import kz.kolesateam.confapp.events.data.models.BranchApiData
 import kz.kolesateam.confapp.events.data.models.BranchListItem
 import kz.kolesateam.confapp.events.data.models.EventApiData
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
+import kz.kolesateam.confapp.events.domain.BranchAllEventsRepository
+import kz.kolesateam.confapp.events.presentation.BranchAllEventsActivity
+import kz.kolesateam.confapp.events.presentation.UpcomingEventsActivity
+import kz.kolesateam.confapp.models.ProgressState
+import kz.kolesateam.confapp.models.ResponseData
 
 class BranchViewHolder(
-    itemView: View
+    itemView: View,
 ) : BaseViewHolder<UpcomingEventListItem>(itemView) {
 
     private val currentBranchEvent: View = itemView.findViewById(R.id.branch_current_event)
@@ -43,7 +56,9 @@ class BranchViewHolder(
             View.INVISIBLE
     }
 
-    override fun onBind(data: UpcomingEventListItem) {
+    override fun onBind(
+        data: UpcomingEventListItem
+    ) {
 
         val branchApiData: BranchApiData = (data as? BranchListItem)?.data ?: return
 
@@ -73,8 +88,12 @@ class BranchViewHolder(
         nextSpeakerJob.text = nextEvent.speaker?.job
         nextEventTitle.text = nextEvent.title
 
-        branchLinearLayout.setOnClickListener {
-            Toast.makeText(it.context, branchTitle.text, Toast.LENGTH_SHORT).show()
+
+
+        branchTitle.setOnClickListener {
+            val intent: Intent = Intent(it.context, BranchAllEventsActivity::class.java)
+            it.context.startActivity(intent)
+
         }
         currentBranchEvent.setOnClickListener {
             Toast.makeText(it.context, currentEventTitle.text, Toast.LENGTH_SHORT).show()
@@ -82,5 +101,7 @@ class BranchViewHolder(
         toFavouritesImageView.setOnClickListener {
             toFavouritesImageView.setImageResource(R.drawable.ic_favorite_fill)
         }
+
     }
+
 }

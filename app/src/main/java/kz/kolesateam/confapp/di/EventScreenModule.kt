@@ -6,6 +6,7 @@ import kz.kolesateam.confapp.events.data.datasources.BranchAllEventsDataSource
 import kz.kolesateam.confapp.events.data.datasources.UpcomingEventsDataSource
 import kz.kolesateam.confapp.events.domain.BranchAllEventsRepository
 import kz.kolesateam.confapp.events.domain.UpcomingEventsRepository
+import kz.kolesateam.confapp.events.presentation.BranchAllEventsViewModel
 import kz.kolesateam.confapp.events.presentation.UpcomingEventsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -21,6 +22,11 @@ val eventScreenModule: Module = module {
     viewModel {
         UpcomingEventsViewModel(
             upcomingEventsRepository = get()
+        )
+    }
+    viewModel {
+        BranchAllEventsViewModel(
+            branchAllEventsRepository = get()
         )
     }
 
@@ -47,6 +53,8 @@ val eventScreenModule: Module = module {
             upcomingEventsDataSource = get(),
             userNameDataSource = get(named(SHARED_PREFS_DATA_SOURCE))
         ) as UpcomingEventsRepository
+    }
+    factory {
         DefaultBranchAllEventsRepository(
             branchAllEventsDataSource = get()
         ) as BranchAllEventsRepository

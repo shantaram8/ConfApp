@@ -12,7 +12,9 @@ class HeaderViewHolder(itemView: View) : BaseViewHolder<UpcomingEventListItem>(i
         itemView.findViewById(R.id.header_layout_greeting_user_text_view)
 
 
-    override fun onBind(data: UpcomingEventListItem) {
+    override fun onBind(
+        data: UpcomingEventListItem
+    ) {
         val userName: String = (data as? HeaderItem)?.userName ?: return
         userNameTextView.text = userName
     }

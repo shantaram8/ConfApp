@@ -35,16 +35,24 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_branch_all_events_recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clipToPadding="false"
-        android:paddingVertical="65dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/branch_all_events_card_item"
-        />
+        android:layout_marginTop="54dp"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activity_branch_all_events_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingVertical="65dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/branch_all_events_card_item"
+            />
+    </LinearLayout>
+
 
     <Button
         android:layout_width="wrap_content"

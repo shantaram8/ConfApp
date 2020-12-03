@@ -7,9 +7,10 @@ import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.events.data.models.HEADER_TYPE
 import kz.kolesateam.confapp.events.data.models.UpcomingEventListItem
 
-class UpcomingEventsAdapter : RecyclerView.Adapter<BaseViewHolder<UpcomingEventListItem>>() {
+class UpcomingEventsAdapter() : RecyclerView.Adapter<BaseViewHolder<UpcomingEventListItem>>() {
 
     private val branchDataList: MutableList<UpcomingEventListItem> = mutableListOf()
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

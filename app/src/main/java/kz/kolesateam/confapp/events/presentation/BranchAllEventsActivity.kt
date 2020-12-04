@@ -1,7 +1,6 @@
 package kz.kolesateam.confapp.events.presentation
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -17,8 +16,8 @@ import kz.kolesateam.confapp.models.ProgressState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners {
-    private val branchAllEventsViewModel: BranchAllEventsViewModel by viewModel()
 
+    private val branchAllEventsViewModel: BranchAllEventsViewModel by viewModel()
     private val branchAllEventsAdapter = BranchAllEventsAdapter(this)
 
     private lateinit var progressBar: ProgressBar
@@ -36,7 +35,7 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
         }
 
         val branchId: Int = intent.getIntExtra("branch_id", 0)
-        observeUpcomingEventsViewModel()
+        observeBranchAllEventsViewModel()
         branchAllEventsViewModel.onStart(branchId)
     }
 
@@ -49,7 +48,7 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
 
     }
 
-    private fun observeUpcomingEventsViewModel() {
+    private fun observeBranchAllEventsViewModel() {
         branchAllEventsViewModel.getProgressBarLiveData().observe(this, {
             handleProgressBarState(it)
         })

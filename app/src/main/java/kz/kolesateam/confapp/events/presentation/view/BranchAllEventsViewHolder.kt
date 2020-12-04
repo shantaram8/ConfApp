@@ -3,6 +3,7 @@ package kz.kolesateam.confapp.events.presentation.view
 import android.view.View
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.events.data.models.EventApiData
 
@@ -11,7 +12,8 @@ class BranchAllEventsViewHolder(
     private val branchAllEventsClickListeners: UpcomingEventsClickListeners
 ) : BaseViewHolder<EventApiData>(itemView) {
 
-    private val cardView: CardView = itemView.findViewById(R.id.card_view)
+    private val statusEventTextView: TextView = itemView.findViewById(R.id.status_event_text_view)
+    private val eventCard: ConstraintLayout = itemView.findViewById(R.id.event_card_constraint_layout)
 
 
     private val eventDatePlace: TextView = itemView.findViewById(R.id.event_date_place_text_view)
@@ -37,7 +39,7 @@ class BranchAllEventsViewHolder(
         addToFavoritesIcon.setOnClickListener {
             branchAllEventsClickListeners.onAddToFavoritesClick(data)
         }
-        cardView.setOnClickListener{
+        eventCard.setOnClickListener{
             branchAllEventsClickListeners.onEventClick(data)
         }
     }

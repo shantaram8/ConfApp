@@ -44,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
+        android:paddingHorizontal="@dimen/view_margin_24x"
         >
 
         <androidx.recyclerview.widget.RecyclerView
@@ -54,7 +55,7 @@
             android:orientation="vertical"
             android:paddingBottom="65dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/branch_all_events_card_item"
+            tools:listitem="@layout/event_card_layout"
             />
     </LinearLayout>
 

@@ -39,8 +39,8 @@ class UpcomingEventsViewModel(
                 is ResponseData.Success-> upcomingEventsLiveData.value = response.result
                 is ResponseData.Error -> errorLiveData.value = response.error
             }
+            progressLiveData.value = ProgressState.Done
         }
-        progressLiveData.value = ProgressState.Done
     }
 
 

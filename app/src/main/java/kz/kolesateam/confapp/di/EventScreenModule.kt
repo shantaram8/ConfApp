@@ -1,13 +1,13 @@
 package kz.kolesateam.confapp.di
 
-import kz.kolesateam.confapp.events.data.DefaultBranchAllEventsRepository
-import kz.kolesateam.confapp.events.data.DefaultUpcomingEventsRepository
-import kz.kolesateam.confapp.events.data.datasources.BranchAllEventsDataSource
-import kz.kolesateam.confapp.events.data.datasources.UpcomingEventsDataSource
-import kz.kolesateam.confapp.events.domain.BranchAllEventsRepository
-import kz.kolesateam.confapp.events.domain.UpcomingEventsRepository
-import kz.kolesateam.confapp.events.presentation.BranchAllEventsViewModel
-import kz.kolesateam.confapp.events.presentation.UpcomingEventsViewModel
+import kz.kolesateam.confapp.branch_all_events.data.DefaultBranchAllEventsRepository
+import kz.kolesateam.confapp.upcoming_events.data.DefaultUpcomingEventsRepository
+import kz.kolesateam.confapp.branch_all_events.data.datasources.BranchAllEventsDataSource
+import kz.kolesateam.confapp.upcoming_events.data.datasources.UpcomingEventsDataSource
+import kz.kolesateam.confapp.branch_all_events.domain.BranchAllEventsRepository
+import kz.kolesateam.confapp.upcoming_events.domain.UpcomingEventsRepository
+import kz.kolesateam.confapp.branch_all_events.presentation.BranchAllEventsViewModel
+import kz.kolesateam.confapp.upcoming_events.presentation.UpcomingEventsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
@@ -60,3 +60,4 @@ val eventScreenModule: Module = module {
         ) as BranchAllEventsRepository
     }
 }
+

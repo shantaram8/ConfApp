@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".events.presentation.UpcomingEventsActivity"
+    tools:context=".upcoming_events.presentation.UpcomingEventsActivity"
     >
     <ProgressBar
         android:id="@+id/activity_branch_all_events_progress_bar"

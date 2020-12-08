@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import kz.kolesateam.confapp.di.SHARED_PREFS_DATA_SOURCE
-import kz.kolesateam.confapp.events.data.datasources.UserNameDataSource
-import kz.kolesateam.confapp.events.presentation.UpcomingEventsActivity
+import kz.kolesateam.confapp.upcoming_events.data.datasources.UserNameDataSource
+import kz.kolesateam.confapp.upcoming_events.presentation.UpcomingEventsActivity
 import org.koin.android.ext.android.inject
 import org.koin.core.qualifier.named
 

@@ -1,12 +1,17 @@
 package kz.kolesateam.confapp.branch_all_events.presentation.view
 
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import kz.kolesateam.confapp.R
-import kz.kolesateam.confapp.models.*
+import kz.kolesateam.confapp.models.BranchAllEventsListItem
+import kz.kolesateam.confapp.models.EventApiData
+import kz.kolesateam.confapp.models.EventsListItem
 import kz.kolesateam.confapp.upcoming_events.presentation.view.BaseViewHolder
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
+
+private const val DATE_PLACE_FORMATTED_STRING = "%s - %s • %s"
 
 class BranchAllEventsViewHolder(
     itemView: View,
@@ -30,7 +35,7 @@ class BranchAllEventsViewHolder(
         val eventApiData: EventApiData = (data as? EventsListItem)?.data ?: return
 
 
-        val eventDatePlaceText = "%s - %s • %s".format(
+        val eventDatePlaceText = DATE_PLACE_FORMATTED_STRING.format(
             eventApiData.startTime,
             eventApiData.endTime,
             eventApiData.place

@@ -45,8 +45,6 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
         recyclerView = findViewById(R.id.activity_branch_all_events_recycler_view)
         favoritesButton = findViewById(R.id.favorites_button)
         recyclerView.adapter = branchAllEventsAdapter
-
-
     }
 
     private fun observeBranchAllEventsViewModel() {
@@ -59,7 +57,7 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
     }
 
     private fun handleProgressBarState(
-        progressState: ProgressState
+            progressState: ProgressState
     ) {
         progressBar.isVisible = progressState is ProgressState.Loading
     }
@@ -69,25 +67,25 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
 
     override fun onEventClick(eventData: EventApiData) {
         Toast.makeText(
-            this,
-            "${eventData.title} card has been clicked",
-            Toast.LENGTH_SHORT
+                this,
+                "${eventData.title} card has been clicked",
+                Toast.LENGTH_SHORT
         ).show()
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {
         Toast.makeText(
-            this,
-            "${eventData.speaker?.fullName}'s heart has been clicked",
-            Toast.LENGTH_SHORT
+                this,
+                "${eventData.speaker?.fullName}'s heart has been clicked",
+                Toast.LENGTH_SHORT
         ).show()
     }
 
     override fun onFavoritesButtonClick() {
         Toast.makeText(
-            this,
-            "Favorites button has been clicked",
-            Toast.LENGTH_SHORT
+                this,
+                "Favorites button has been clicked",
+                Toast.LENGTH_SHORT
         ).show()
     }
 }

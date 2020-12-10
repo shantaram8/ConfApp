@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.branch_all_events.domain.BranchAllEventsRepository
 import kz.kolesateam.confapp.models.BranchAllEventsListItem
 import kz.kolesateam.confapp.models.ProgressState
@@ -19,23 +18,20 @@ class BranchAllEventsViewModel(
 
     private val branchAllEventsLiveData: MutableLiveData<List<BranchAllEventsListItem>> = MutableLiveData()
     private val progressLiveData: MutableLiveData<ProgressState> = MutableLiveData()
-    private val branchTitleLiveData: MutableLiveData<String> = MutableLiveData()
 
     fun getBranchAllEventsLiveData(): LiveData<List<BranchAllEventsListItem>> = branchAllEventsLiveData
     fun getProgressBarLiveData(): LiveData<ProgressState> = progressLiveData
-    fun getBranchTitleLiveData(): LiveData<String> = branchTitleLiveData
 
 
     fun onStart(branchId: Int, branchTitle: String) {
-        getBranchAllEvents(branchId)
-        branchTitleLiveData.value = branchTitle
+        getBranchAllEvents(branchId, branchTitle)
     }
 
-    private fun getBranchAllEvents(branchId: Int) {
+    private fun getBranchAllEvents(branchId: Int, branchTitle: String) {
         GlobalScope.launch(Dispatchers.Main) {
             progressLiveData.value = ProgressState.Loading
             val response = withContext(Dispatchers.IO) {
-                branchAllEventsRepository.getBranchAllEvents(branchId)
+                branchAllEventsRepository.getBranchAllEvents(branchId, branchTitle)
             }
             when (response) {
                 is ResponseData.Success -> branchAllEventsLiveData.value = response.result

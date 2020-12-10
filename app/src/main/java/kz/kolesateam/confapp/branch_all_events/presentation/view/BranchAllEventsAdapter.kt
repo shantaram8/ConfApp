@@ -5,12 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.models.BranchAllEventsListItem
-import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.HEADER_TYPE
-import kz.kolesateam.confapp.models.UpcomingEventListItem
 import kz.kolesateam.confapp.upcoming_events.presentation.view.BaseViewHolder
-import kz.kolesateam.confapp.upcoming_events.presentation.view.BranchViewHolder
-import kz.kolesateam.confapp.upcoming_events.presentation.view.HeaderViewHolder
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
 
 class BranchAllEventsAdapter(
@@ -18,12 +14,15 @@ class BranchAllEventsAdapter(
 ) : RecyclerView.Adapter<BaseViewHolder<BranchAllEventsListItem>>() {
 
     private val branchAllEventsList: MutableList<BranchAllEventsListItem> = mutableListOf()
-
     override fun onBindViewHolder(holder: BaseViewHolder<BranchAllEventsListItem>, position: Int) {
         holder.onBind(branchAllEventsList[position])
     }
 
     override fun getItemCount(): Int = branchAllEventsList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return branchAllEventsList[position].type
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

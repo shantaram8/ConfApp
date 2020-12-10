@@ -6,5 +6,5 @@ import kz.kolesateam.confapp.models.ResponseData
 
 interface BranchAllEventsRepository {
 
-    fun getBranchAllEvents(branchId: Int): ResponseData<List<BranchAllEventsListItem>, Exception>
+    fun getBranchAllEvents(branchId: Int, branchTitle: String): ResponseData<List<BranchAllEventsListItem>, Exception>
 }

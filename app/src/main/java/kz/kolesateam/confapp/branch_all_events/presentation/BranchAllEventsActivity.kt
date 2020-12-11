@@ -41,9 +41,9 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
     }
 
     private fun bindViews() {
+        favoritesButton = findViewById(R.id.activity_all_upcoming_events_favorites_button)
         progressBar = findViewById(R.id.activity_branch_all_events_progress_bar)
         recyclerView = findViewById(R.id.activity_branch_all_events_recycler_view)
-        favoritesButton = findViewById(R.id.favorites_button)
         recyclerView.adapter = branchAllEventsAdapter
     }
 

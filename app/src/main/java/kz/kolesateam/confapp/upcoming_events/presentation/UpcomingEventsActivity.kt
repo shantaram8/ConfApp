@@ -2,6 +2,7 @@ package kz.kolesateam.confapp.upcoming_events.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.branch_all_events.presentation.BranchAllEventsActivity
+import kz.kolesateam.confapp.favorite_events.presentation.FavoriteEventsActivity
 import kz.kolesateam.confapp.models.BranchListItem
 import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.UpcomingEventListItem
@@ -25,6 +27,7 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
     private val upcomingEventsAdapter = UpcomingEventsAdapter(this)
 
     private lateinit var progressBar: ProgressBar
+    private lateinit var favoritesButton: Button
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +38,14 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
     }
 
     private fun bindViews() {
+        favoritesButton = findViewById(R.id.activity_upcoming_events_favorites_button)
         progressBar = findViewById(R.id.activity_upcoming_events_progress_bar)
         recyclerView = findViewById(R.id.activity_upcoming_events_recycler_view)
         recyclerView.adapter = upcomingEventsAdapter
+
+        favoritesButton.setOnClickListener {
+            onFavoritesButtonClick()
+        }
 
         observeUpcomingEventsViewModel()
         upcomingEventsViewModel.onStart()
@@ -80,10 +88,11 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {
+        upcomingEventsViewModel.onFavoriteClick(eventData)
     }
 
     override fun onFavoritesButtonClick() {
-
+        startActivity(Intent(this, FavoriteEventsActivity::class.java))
     }
 
 

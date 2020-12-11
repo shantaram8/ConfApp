@@ -84,7 +84,15 @@ class BranchViewHolder(
             Toast.makeText(it.context, currentEventTitle.text, Toast.LENGTH_SHORT).show()
         }
         toFavouritesImageView.setOnClickListener {
-            toFavouritesImageView.setImageResource(R.drawable.ic_favorite_fill)
+            currentEvent.isFavorite = !currentEvent.isFavorite
+
+            val toFavoriteImageResource = when(currentEvent.isFavorite) {
+                true -> R.drawable.ic_favorite_fill
+                else -> R.drawable.ic_favorite_border
+            }
+            toFavouritesImageView.setImageResource(toFavoriteImageResource)
+
+            upcomingEventsClickListeners.onAddToFavoritesClick(currentEvent)
         }
 
     }

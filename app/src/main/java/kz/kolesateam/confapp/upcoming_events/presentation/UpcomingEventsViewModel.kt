@@ -7,13 +7,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
+import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.UpcomingEventListItem
 import kz.kolesateam.confapp.upcoming_events.domain.UpcomingEventsRepository
 import kz.kolesateam.confapp.models.ProgressState
 import kz.kolesateam.confapp.models.ResponseData
 
 class UpcomingEventsViewModel(
-    private val upcomingEventsRepository: UpcomingEventsRepository
+    private val upcomingEventsRepository: UpcomingEventsRepository,
+    private val favoriteEventsRepository: FavoriteEventsRepository
 ) : ViewModel() {
 
     private val progressLiveData: MutableLiveData<ProgressState> = MutableLiveData()
@@ -28,6 +31,15 @@ class UpcomingEventsViewModel(
 
     fun onStart() {
         getUpcomingEvents()
+    }
+
+    fun onFavoriteClick(
+        eventData: EventApiData
+    ) {
+        when(eventData.isFavorite) {
+            true -> favoriteEventsRepository.saveFavoriteEvents(eventData)
+            else -> favoriteEventsRepository.removeFavoriteEvent(eventsId = eventData.id)
+        }
     }
 
     private fun getUpcomingEvents() {

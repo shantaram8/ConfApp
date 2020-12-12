@@ -9,8 +9,8 @@ import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.UpcomingEventListItem
 
 class BranchViewHolder(
-    itemView: View,
-    private val upcomingEventsClickListeners: UpcomingEventsClickListeners
+        itemView: View,
+        private val upcomingEventsClickListeners: UpcomingEventsClickListeners
 ) : BaseViewHolder<UpcomingEventListItem>(itemView) {
 
 
@@ -20,29 +20,29 @@ class BranchViewHolder(
     private val branchLinearLayout: LinearLayout = itemView.findViewById(R.id.branch_linear_layout)
     private val branchTitle: TextView = itemView.findViewById(R.id.branch_title)
 
-    private val toFavouritesImageView: ImageView =
-        itemView.findViewById(R.id.to_favourite_image_view)
+    private val toFavouritesImageViewCurrent: ImageView = itemView.findViewById(R.id.to_favourite_image_view)
+    private val toFavouritesImageViewNext: ImageView = nextBranchEvent.findViewById(R.id.to_favourite_image_view)
 
     private val currentEventDatePlace: TextView =
-        currentBranchEvent.findViewById(R.id.event_date_place_text_view)
+            currentBranchEvent.findViewById(R.id.event_date_place_text_view)
     private val currentSpeakerName: TextView =
-        currentBranchEvent.findViewById(R.id.speaker_name_text_view)
+            currentBranchEvent.findViewById(R.id.speaker_name_text_view)
     private val currentSpeakerJob: TextView =
-        currentBranchEvent.findViewById(R.id.speaker_job_text_view)
+            currentBranchEvent.findViewById(R.id.speaker_job_text_view)
     private val currentEventTitle: TextView =
-        currentBranchEvent.findViewById(R.id.event_title_text_view)
+            currentBranchEvent.findViewById(R.id.event_title_text_view)
 
     private val nextEventDatePlace: TextView =
-        nextBranchEvent.findViewById(R.id.event_date_place_text_view)
+            nextBranchEvent.findViewById(R.id.event_date_place_text_view)
     private val nextSpeakerName: TextView =
-        nextBranchEvent.findViewById(R.id.speaker_name_text_view)
+            nextBranchEvent.findViewById(R.id.speaker_name_text_view)
     private val nextSpeakerJob: TextView = nextBranchEvent.findViewById(R.id.speaker_job_text_view)
     private val nextEventTitle: TextView = nextBranchEvent.findViewById(R.id.event_title_text_view)
 
 
     init {
         currentBranchEvent.findViewById<TextView>(R.id.next_event_text_view).visibility =
-            View.INVISIBLE
+                View.INVISIBLE
     }
 
     override fun onBind(data: UpcomingEventListItem) {
@@ -54,9 +54,9 @@ class BranchViewHolder(
         val nextEvent: EventApiData = branchApiData.events.last()
 
         val currentEventDatePlaceText = "%s - %s • %s".format(
-            currentEvent.startTime,
-            currentEvent.endTime,
-            currentEvent.place
+                currentEvent.startTime,
+                currentEvent.endTime,
+                currentEvent.place
         )
 
         currentEventDatePlace.text = currentEventDatePlaceText
@@ -65,9 +65,9 @@ class BranchViewHolder(
         currentEventTitle.text = currentEvent.title
 
         val nextEventDatePlaceText = "%s - %s • %s".format(
-            currentEvent.startTime,
-            currentEvent.endTime,
-            currentEvent.place
+                currentEvent.startTime,
+                currentEvent.endTime,
+                currentEvent.place
         )
 
         nextEventDatePlace.text = nextEventDatePlaceText
@@ -83,18 +83,31 @@ class BranchViewHolder(
         currentBranchEvent.setOnClickListener {
             Toast.makeText(it.context, currentEventTitle.text, Toast.LENGTH_SHORT).show()
         }
-        toFavouritesImageView.setOnClickListener {
+        toFavouritesImageViewCurrent.setOnClickListener {
             currentEvent.isFavorite = !currentEvent.isFavorite
 
-            val toFavoriteImageResource = when(currentEvent.isFavorite) {
-                true -> R.drawable.ic_favorite_fill
-                else -> R.drawable.ic_favorite_border
-            }
-            toFavouritesImageView.setImageResource(toFavoriteImageResource)
+            val toFavoriteImageResource = getFavoriteImageResource(currentEvent.isFavorite)
+            toFavouritesImageViewCurrent.setImageResource(toFavoriteImageResource)
 
             upcomingEventsClickListeners.onAddToFavoritesClick(currentEvent)
         }
+        toFavouritesImageViewNext.setOnClickListener {
+            nextEvent.isFavorite = !nextEvent.isFavorite
+
+            val toFavoriteImageResource = getFavoriteImageResource(nextEvent.isFavorite)
+            toFavouritesImageViewNext.setImageResource(toFavoriteImageResource)
+
+            upcomingEventsClickListeners.onAddToFavoritesClick(nextEvent)
+        }
 
     }
+
+    private fun getFavoriteImageResource(
+            isFavorite: Boolean
+    ): Int = when (isFavorite) {
+        true -> R.drawable.ic_favorite_fill
+        else -> R.drawable.ic_favorite_border
+    }
+
 
 }

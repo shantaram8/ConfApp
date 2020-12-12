@@ -30,7 +30,7 @@ class UpcomingEventsViewModel(
 
 
     fun onStart() {
-        getUpcomingEvents()
+        saveUpcomingEventsToLiveData()
     }
 
     fun onFavoriteClick(
@@ -42,7 +42,7 @@ class UpcomingEventsViewModel(
         }
     }
 
-    private fun getUpcomingEvents() {
+    private fun saveUpcomingEventsToLiveData() {
         GlobalScope.launch(Dispatchers.Main) {
             progressLiveData.value = ProgressState.Loading
             val response = withContext(Dispatchers.IO) {

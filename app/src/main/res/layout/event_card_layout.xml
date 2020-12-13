@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_status_event_text_view"
         android:paddingHorizontal="5dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:text="Завершен"
         android:textColor="@color/white"
         android:textSize="13sp"

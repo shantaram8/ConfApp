@@ -41,8 +41,10 @@ class BranchViewHolder(
 
 
     init {
-        currentBranchEvent.findViewById<TextView>(R.id.next_event_text_view).visibility =
-                View.INVISIBLE
+        nextBranchEvent.setBackgroundResource(R.drawable.bg_event_card_completed_item)
+        nextBranchEvent.findViewById<TextView>(R.id.next_event_text_view).visibility = View.VISIBLE
+
+
     }
 
     override fun onBind(data: UpcomingEventListItem) {
@@ -75,7 +77,10 @@ class BranchViewHolder(
         nextSpeakerJob.text = nextEvent.speaker?.job
         nextEventTitle.text = nextEvent.title
 
-
+        val favoriteImageResourceCurrent = getFavoriteImageResource(currentEvent.isFavorite)
+        toFavouritesImageViewCurrent.setImageResource(favoriteImageResourceCurrent)
+        val favoriteImageResourceNext = getFavoriteImageResource(nextEvent.isFavorite)
+        toFavouritesImageViewNext.setImageResource(favoriteImageResourceNext)
 
         branchLinearLayout.setOnClickListener {
             upcomingEventsClickListeners.onBranchClick(data)
@@ -90,6 +95,7 @@ class BranchViewHolder(
             toFavouritesImageViewCurrent.setImageResource(toFavoriteImageResource)
 
             upcomingEventsClickListeners.onAddToFavoritesClick(currentEvent)
+
         }
         toFavouritesImageViewNext.setOnClickListener {
             nextEvent.isFavorite = !nextEvent.isFavorite

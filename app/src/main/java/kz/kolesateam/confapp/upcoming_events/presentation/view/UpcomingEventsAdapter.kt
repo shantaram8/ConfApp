@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
-import kz.kolesateam.confapp.models.HEADER_TYPE
-import kz.kolesateam.confapp.models.UpcomingEventListItem
+import kz.kolesateam.confapp.branch_all_events.presentation.BranchAllEventsActivity
+import kz.kolesateam.confapp.models.*
 
 class UpcomingEventsAdapter(
     private val itemClickListeners: UpcomingEventsClickListeners

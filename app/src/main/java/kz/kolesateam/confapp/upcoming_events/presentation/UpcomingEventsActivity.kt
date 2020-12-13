@@ -11,12 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.branch_all_events.presentation.BranchAllEventsActivity
 import kz.kolesateam.confapp.favorite_events.presentation.FavoriteEventsActivity
-import kz.kolesateam.confapp.models.BranchListItem
-import kz.kolesateam.confapp.models.EventApiData
-import kz.kolesateam.confapp.models.UpcomingEventListItem
+import kz.kolesateam.confapp.models.*
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsAdapter
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
-import kz.kolesateam.confapp.models.ProgressState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

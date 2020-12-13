@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".ConfAppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,7 +16,8 @@
         android:theme="@style/Theme.ConfApp"
         android:usesCleartextTraffic="true"
         >
-        <activity android:name=".events.presentation.UpcomingEventsActivity" />
+        <activity android:name=".upcoming_events.presentation.UpcomingEventsActivity" />
+        <activity android:name=".branch_all_events.presentation.BranchAllEventsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

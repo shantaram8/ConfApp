@@ -3,6 +3,7 @@
     <dimen name="view_margin_24x">24dp</dimen>
     <dimen name="view_margin_16x">16dp</dimen>
     <dimen name="view_margin8x">8dp</dimen>
+    <dimen name="view_margin4x">4dp</dimen>
     <dimen name="view_padding_16x">16dp</dimen>
     <dimen name="view_padding_8x">8dp</dimen>
     <dimen name="view_padding_4x">4dp</dimen>

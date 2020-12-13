@@ -6,7 +6,7 @@
     <string name="hello_text">Привет</string>
     <string name="back_button_text">Назад</string>
 
-    <string name="hello_text_fmt">Привет %1s!!!</string>
+    <string name="hello_text_fmt">Привет, %1s !!!</string>
 
     <string name="activity_main_logo_description">Kolesa Conf logo</string>
     <string name="activity_main_corona_logo_description">Corona Logo</string>

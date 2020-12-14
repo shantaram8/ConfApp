@@ -14,4 +14,6 @@ interface FavoriteEventsRepository {
     )
 
     fun getAllFavoriteEvents(): ResponseData<List<EventApiData>, Exception>
+
+    fun isFavorite(id: Int?) : Boolean
 }

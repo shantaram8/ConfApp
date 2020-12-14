@@ -8,11 +8,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
-import kz.kolesateam.confapp.models.EventApiData
-import kz.kolesateam.confapp.models.UpcomingEventListItem
+import kz.kolesateam.confapp.models.*
 import kz.kolesateam.confapp.upcoming_events.domain.UpcomingEventsRepository
-import kz.kolesateam.confapp.models.ProgressState
-import kz.kolesateam.confapp.models.ResponseData
 
 class UpcomingEventsViewModel(
     private val upcomingEventsRepository: UpcomingEventsRepository,
@@ -33,7 +30,7 @@ class UpcomingEventsViewModel(
         saveUpcomingEventsToLiveData()
     }
 
-    fun onFavoriteClick(
+    fun onAddToFavoriteClick(
         eventData: EventApiData
     ) {
         when(eventData.isFavorite) {
@@ -49,11 +46,20 @@ class UpcomingEventsViewModel(
                 upcomingEventsRepository.getUpcomingEvents()
             }
             when (response) {
-                is ResponseData.Success -> upcomingEventsLiveData.value = response.result
+                is ResponseData.Success -> upcomingEventsLiveData.value = upcomingEventsListWithFavoriteState(response.result)
                 is ResponseData.Error -> errorLiveData.value = response.error
             }
             progressLiveData.value = ProgressState.Done
         }
+    }
+    private fun upcomingEventsListWithFavoriteState(upcomingEventListItem: List<UpcomingEventListItem>) : List<UpcomingEventListItem> {
+        upcomingEventListItem.forEach {
+            val upcomingEvent: BranchApiData = (it as? BranchListItem)?.data ?: return@forEach
+            upcomingEvent.events.forEach { eventApiData ->
+                eventApiData.isFavorite = favoriteEventsRepository.isFavorite(eventApiData.id)
+            }
+        }
+        return upcomingEventListItem
     }
 
 

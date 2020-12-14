@@ -61,12 +61,13 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
     }
 
     private fun handleProgressBarState(
-        progressState: ProgressState
+            progressState: ProgressState
     ) {
         progressBar.isVisible = progressState is ProgressState.Loading
     }
 
     private fun showResult(upcomingEventList: List<UpcomingEventListItem>) {
+
         upcomingEventsAdapter.setList(upcomingEventList)
     }
 
@@ -85,7 +86,7 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {
-        upcomingEventsViewModel.onFavoriteClick(eventData)
+        upcomingEventsViewModel.onAddToFavoriteClick(eventData)
     }
 
     override fun onFavoritesButtonClick() {

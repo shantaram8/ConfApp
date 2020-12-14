@@ -43,6 +43,8 @@ class DefaultFavoriteEventsRepository(
         )
     }
 
+    override fun isFavorite(id: Int?): Boolean = favoriteEvents.containsKey(id)
+
     private fun saveFavoriteEventsToFile() {
 
         val favoriteEventsJsonString: String = objectMapper.writeValueAsString(favoriteEvents)

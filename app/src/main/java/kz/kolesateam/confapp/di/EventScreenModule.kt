@@ -21,21 +21,22 @@ val eventScreenModule: Module = module {
 
     viewModel {
         UpcomingEventsViewModel(
-            upcomingEventsRepository = get(),
-            favoriteEventsRepository = get()
+                upcomingEventsRepository = get(),
+                favoriteEventsRepository = get(),
+                notificationAlarmHelper = get()
         )
     }
     viewModel {
         BranchAllEventsViewModel(
-            branchAllEventsRepository = get()
+                branchAllEventsRepository = get()
         )
     }
 
     single {
         Retrofit.Builder()
-            .baseUrl(API_BASE_URL)
-            .addConverterFactory(JacksonConverterFactory.create())
-            .build()
+                .baseUrl(API_BASE_URL)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build()
     }
 
     single {
@@ -44,20 +45,20 @@ val eventScreenModule: Module = module {
         retrofit.create(UpcomingEventsDataSource::class.java)
     }
     single {
-        val retrofit:Retrofit = get()
+        val retrofit: Retrofit = get()
 
         retrofit.create(BranchAllEventsDataSource::class.java)
     }
 
     factory {
         DefaultUpcomingEventsRepository(
-            upcomingEventsDataSource = get(),
-            userNameDataSource = get(named(SHARED_PREFS_DATA_SOURCE))
+                upcomingEventsDataSource = get(),
+                userNameDataSource = get(named(SHARED_PREFS_DATA_SOURCE))
         ) as UpcomingEventsRepository
     }
     factory {
         DefaultBranchAllEventsRepository(
-            branchAllEventsDataSource = get()
+                branchAllEventsDataSource = get()
         ) as BranchAllEventsRepository
     }
 }

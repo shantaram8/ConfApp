@@ -9,11 +9,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
 import kz.kolesateam.confapp.models.*
+import kz.kolesateam.confapp.notifications.NotificationAlarmHelper
 import kz.kolesateam.confapp.upcoming_events.domain.UpcomingEventsRepository
 
 class UpcomingEventsViewModel(
     private val upcomingEventsRepository: UpcomingEventsRepository,
-    private val favoriteEventsRepository: FavoriteEventsRepository
+    private val favoriteEventsRepository: FavoriteEventsRepository,
+    private val notificationAlarmHelper: NotificationAlarmHelper
 ) : ViewModel() {
 
     private val progressLiveData: MutableLiveData<ProgressState> = MutableLiveData()
@@ -34,9 +36,19 @@ class UpcomingEventsViewModel(
         eventData: EventApiData
     ) {
         when(eventData.isFavorite) {
-            true -> favoriteEventsRepository.saveFavoriteEvents(eventData)
+            true -> {
+                favoriteEventsRepository.saveFavoriteEvents(eventData)
+                scheduleEvent(eventData)
+            }
             else -> favoriteEventsRepository.removeFavoriteEvent(eventsId = eventData.id)
         }
+    }
+
+    private fun scheduleEvent(eventData: EventApiData) {
+        notificationAlarmHelper.createNotificationAlarm(
+                content = eventData.title,
+                eventDate  = eventData.startTime
+        )
     }
 
     private fun saveUpcomingEventsToLiveData() {

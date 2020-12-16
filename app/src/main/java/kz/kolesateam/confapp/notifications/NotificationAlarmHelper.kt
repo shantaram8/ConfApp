@@ -31,7 +31,7 @@ class NotificationAlarmHelper(
 
         val calendar: Calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(2020,11,14,13,17)
+        calendar.set(2020,11,16,13,56)
 
         alarmManager?.setExact(
                 AlarmManager.RTC_WAKEUP,

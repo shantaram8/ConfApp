@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".favorite_events.presentation.FavoriteEventsActivity">
+    android:background="@color/black"
+    tools:context=".favorite_events.presentation.FavoriteEventsActivity"
+    >
+    <ProgressBar
+        android:id="@+id/activity_favorite_events_events_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_gravity="center"
+        />
 
-    <TextView
-        android:id="@+id/activity_favorite_events_text_view"
+    <LinearLayout
+        android:id="@+id/activity_favorite_events_header_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/view_padding_16x"
+        >
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:padding="@dimen/view_padding_4x"
+            android:src="@drawable/ic_arrow_back_bold"
+            />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_logo_white"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="54dp"
+        android:paddingHorizontal="@dimen/view_margin_24x"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activity_favorite_events_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingBottom="65dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/branch_all_events_card_item"
+            />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/activity_favorite_events_to_main_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/view_margin_24x"
+        android:background="@drawable/bg_upcoming_events_activity_favourites_button"
+        android:drawableStart="@drawable/ic_main_menu"
+        android:drawablePadding="10dp"
+        android:paddingHorizontal="@dimen/view_padding_16x"
+        android:text="На главную"
+        android:textAllCaps="false"
+        android:textColor="@color/activity_upcoming_events_button_text_color"
+        android:textSize="@dimen/view_button_text_size"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg"
+        />
+
 
 </FrameLayout>

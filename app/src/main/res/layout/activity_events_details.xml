@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".events_details.presentation.EventsDetailsActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg"
+        android:layout_gravity="center"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,8 +57,9 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/activity_events_details_speaker_photo_image_view"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+                    android:layout_height="280dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

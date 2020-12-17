@@ -50,7 +50,7 @@ class BranchAllEventsViewHolder(
             branchAllEventsClickListeners.onAddToFavoritesClick(eventApiData)
         }
         eventCard.setOnClickListener {
-            branchAllEventsClickListeners.onEventClick(eventApiData)
+            branchAllEventsClickListeners.onEventClick()
         }
     }
 

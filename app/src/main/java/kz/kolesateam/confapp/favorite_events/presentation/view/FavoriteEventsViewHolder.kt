@@ -45,7 +45,7 @@ class FavoriteEventsViewHolder(
             favoriteClickListeners.onAddToFavoritesClick(eventApiData)
         }
         eventCard.setOnClickListener {
-            favoriteClickListeners.onEventClick(eventApiData)
+            favoriteClickListeners.onEventClick()
         }
     }
 

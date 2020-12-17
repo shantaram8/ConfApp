@@ -18,9 +18,7 @@ interface BranchClickListener {
 
 interface EventClickListener {
 
-    fun onEventClick(
-        eventData: EventApiData
-    )
+    fun onEventClick()
 }
 
 interface AddToFavoritesClickListener {

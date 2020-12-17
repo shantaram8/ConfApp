@@ -1,11 +1,13 @@
 package kz.kolesateam.confapp.favorite_events.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
+import kz.kolesateam.confapp.events_details.presentation.EventsDetailsActivity
 import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
 import kz.kolesateam.confapp.favorite_events.presentation.view.FavoriteEventsAdapter
 import kz.kolesateam.confapp.models.BranchListItem
@@ -52,7 +54,8 @@ class FavoriteEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
     override fun onBranchClick(branchData: BranchListItem) {
     }
 
-    override fun onEventClick(eventData: EventApiData) {
+    override fun onEventClick() {
+        startActivity(Intent(this, EventsDetailsActivity::class.java))
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {

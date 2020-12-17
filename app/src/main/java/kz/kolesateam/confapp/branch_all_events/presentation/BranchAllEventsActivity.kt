@@ -1,5 +1,6 @@
 package kz.kolesateam.confapp.branch_all_events.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
@@ -11,6 +12,7 @@ import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.models.BranchListItem
 import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.branch_all_events.presentation.view.BranchAllEventsAdapter
+import kz.kolesateam.confapp.events_details.presentation.EventsDetailsActivity
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
 import kz.kolesateam.confapp.models.ProgressState
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -65,12 +67,8 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
     override fun onBranchClick(branchData: BranchListItem) {
     }
 
-    override fun onEventClick(eventData: EventApiData) {
-        Toast.makeText(
-                this,
-                "${eventData.title} card has been clicked",
-                Toast.LENGTH_SHORT
-        ).show()
+    override fun onEventClick() {
+        startActivity(Intent(this, EventsDetailsActivity::class.java))
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {

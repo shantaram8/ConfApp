@@ -86,7 +86,7 @@ class BranchViewHolder(
             upcomingEventsClickListeners.onBranchClick(data)
         }
         currentBranchEvent.setOnClickListener {
-            Toast.makeText(it.context, currentEventTitle.text, Toast.LENGTH_SHORT).show()
+            upcomingEventsClickListeners.onEventClick()
         }
         toFavouritesImageViewCurrent.setOnClickListener {
             currentEvent.isFavorite = !currentEvent.isFavorite

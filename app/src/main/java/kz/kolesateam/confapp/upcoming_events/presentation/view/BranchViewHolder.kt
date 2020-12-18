@@ -1,12 +1,22 @@
 package kz.kolesateam.confapp.upcoming_events.presentation.view
 
+import android.os.Build
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.models.BranchApiData
 import kz.kolesateam.confapp.models.BranchListItem
 import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.UpcomingEventListItem
+import java.text.DateFormat.getDateInstance
+import java.text.DateFormat.getTimeInstance
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class BranchViewHolder(
         itemView: View,
@@ -55,9 +65,14 @@ class BranchViewHolder(
         val currentEvent: EventApiData = branchApiData.events.first()
         val nextEvent: EventApiData = branchApiData.events.last()
 
+        val startTime = currentEvent.startTime.subSequence(11, 19)
+        val endTime = currentEvent.endTime.subSequence(11, 19)
+        val startTimeNextEvent = nextEvent.startTime.subSequence(11, 19)
+        val endTimeNextEvent = nextEvent.endTime.subSequence(11, 19)
+
         val currentEventDatePlaceText = "%s - %s • %s".format(
-                currentEvent.startTime,
-                currentEvent.endTime,
+                startTime,
+                endTime,
                 currentEvent.place
         )
 
@@ -67,9 +82,9 @@ class BranchViewHolder(
         currentEventTitle.text = currentEvent.title
 
         val nextEventDatePlaceText = "%s - %s • %s".format(
-                currentEvent.startTime,
-                currentEvent.endTime,
-                currentEvent.place
+                startTimeNextEvent,
+                endTimeNextEvent,
+                nextEvent.place
         )
 
         nextEventDatePlace.text = nextEventDatePlaceText

@@ -7,6 +7,10 @@ import kz.kolesateam.confapp.upcoming_events.data.datasources.UpcomingEventsData
 import kz.kolesateam.confapp.branch_all_events.domain.BranchAllEventsRepository
 import kz.kolesateam.confapp.upcoming_events.domain.UpcomingEventsRepository
 import kz.kolesateam.confapp.branch_all_events.presentation.BranchAllEventsViewModel
+import kz.kolesateam.confapp.events_details.data.DefaultEventDetailsRepository
+import kz.kolesateam.confapp.events_details.data.datasources.EventDetailsDataSource
+import kz.kolesateam.confapp.events_details.domain.EventDetailsRepository
+import kz.kolesateam.confapp.events_details.presentation.EventDetailsViewModel
 import kz.kolesateam.confapp.upcoming_events.presentation.UpcomingEventsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -21,22 +25,27 @@ val eventScreenModule: Module = module {
 
     viewModel {
         UpcomingEventsViewModel(
-                upcomingEventsRepository = get(),
-                favoriteEventsRepository = get(),
-                notificationAlarmHelper = get()
+            upcomingEventsRepository = get(),
+            favoriteEventsRepository = get(),
+            notificationAlarmHelper = get()
         )
     }
     viewModel {
         BranchAllEventsViewModel(
-                branchAllEventsRepository = get()
+            branchAllEventsRepository = get()
+        )
+    }
+    viewModel {
+        EventDetailsViewModel(
+            eventDetailsRepository = get()
         )
     }
 
     single {
         Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build()
+            .baseUrl(API_BASE_URL)
+            .addConverterFactory(JacksonConverterFactory.create())
+            .build()
     }
 
     single {
@@ -49,17 +58,29 @@ val eventScreenModule: Module = module {
 
         retrofit.create(BranchAllEventsDataSource::class.java)
     }
+    single {
+        val retrofit: Retrofit = get()
+
+        retrofit.create(EventDetailsDataSource::class.java)
+    }
 
     factory {
         DefaultUpcomingEventsRepository(
-                upcomingEventsDataSource = get(),
-                userNameDataSource = get(named(SHARED_PREFS_DATA_SOURCE))
+            upcomingEventsDataSource = get(),
+            userNameDataSource = get(named(SHARED_PREFS_DATA_SOURCE))
         ) as UpcomingEventsRepository
     }
+
     factory {
         DefaultBranchAllEventsRepository(
-                branchAllEventsDataSource = get()
+            branchAllEventsDataSource = get()
         ) as BranchAllEventsRepository
+    }
+
+    factory {
+        DefaultEventDetailsRepository(
+            eventDetailsDataSource = get()
+        ) as EventDetailsRepository
     }
 }
 

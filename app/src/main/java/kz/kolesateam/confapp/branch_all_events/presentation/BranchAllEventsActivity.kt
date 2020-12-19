@@ -67,7 +67,7 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
     override fun onBranchClick(branchData: BranchListItem) {
     }
 
-    override fun onEventClick() {
+    override fun onEventClick(eventData: EventApiData) {
         startActivity(Intent(this, EventsDetailsActivity::class.java))
     }
 

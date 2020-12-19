@@ -10,6 +10,8 @@ import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.EventsListItem
 import kz.kolesateam.confapp.upcoming_events.presentation.view.BaseViewHolder
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
+import kz.kolesateam.confapp.utils.extensions.getEventFormattedTime
+import kz.kolesateam.confapp.utils.extensions.getParsedEventTime
 
 const val DATE_PLACE_FORMATTED_STRING = "%s - %s • %s"
 
@@ -34,10 +36,12 @@ class BranchAllEventsViewHolder(
 
         val eventApiData: EventApiData = (data as? EventsListItem)?.data ?: return
 
+        val startTime = getParsedEventTime(eventApiData.startTime).getEventFormattedTime()
+        val endTime = getParsedEventTime(eventApiData.endTime).getEventFormattedTime()
 
         val eventDatePlaceText = DATE_PLACE_FORMATTED_STRING.format(
-            eventApiData.startTime,
-            eventApiData.endTime,
+            startTime,
+            endTime,
             eventApiData.place
         )
 
@@ -50,7 +54,7 @@ class BranchAllEventsViewHolder(
             branchAllEventsClickListeners.onAddToFavoritesClick(eventApiData)
         }
         eventCard.setOnClickListener {
-            branchAllEventsClickListeners.onEventClick()
+            branchAllEventsClickListeners.onEventClick(eventApiData)
         }
     }
 

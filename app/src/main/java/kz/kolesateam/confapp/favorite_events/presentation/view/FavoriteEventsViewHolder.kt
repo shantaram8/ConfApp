@@ -9,6 +9,8 @@ import kz.kolesateam.confapp.branch_all_events.presentation.view.DATE_PLACE_FORM
 import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.upcoming_events.presentation.view.BaseViewHolder
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
+import kz.kolesateam.confapp.utils.extensions.getEventFormattedTime
+import kz.kolesateam.confapp.utils.extensions.getParsedEventTime
 
 class FavoriteEventsViewHolder(
         itemView: View,
@@ -29,10 +31,12 @@ class FavoriteEventsViewHolder(
 
         val eventApiData: EventApiData = data
 
+        val startTime = getParsedEventTime(eventApiData.startTime).getEventFormattedTime()
+        val endTime = getParsedEventTime(eventApiData.endTime).getEventFormattedTime()
 
         val eventDatePlaceText = DATE_PLACE_FORMATTED_STRING.format(
-                eventApiData.startTime,
-                eventApiData.endTime,
+                startTime,
+                endTime,
                 eventApiData.place
         )
 
@@ -45,7 +49,7 @@ class FavoriteEventsViewHolder(
             favoriteClickListeners.onAddToFavoritesClick(eventApiData)
         }
         eventCard.setOnClickListener {
-            favoriteClickListeners.onEventClick()
+            favoriteClickListeners.onEventClick(eventApiData)
         }
     }
 

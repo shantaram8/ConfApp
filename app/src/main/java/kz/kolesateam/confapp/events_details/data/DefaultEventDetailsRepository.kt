@@ -2,7 +2,8 @@ package kz.kolesateam.confapp.events_details.data
 
 import kz.kolesateam.confapp.events_details.data.datasources.EventDetailsDataSource
 import kz.kolesateam.confapp.events_details.domain.EventDetailsRepository
-import kz.kolesateam.confapp.models.*
+import kz.kolesateam.confapp.models.EventApiData
+import kz.kolesateam.confapp.models.ResponseData
 
 class DefaultEventDetailsRepository(
         private val eventDetailsDataSource: EventDetailsDataSource

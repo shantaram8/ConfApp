@@ -1,22 +1,16 @@
 package kz.kolesateam.confapp.upcoming_events.presentation.view
 
-import android.os.Build
 import android.view.View
-import android.widget.*
-import androidx.annotation.RequiresApi
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.models.BranchApiData
 import kz.kolesateam.confapp.models.BranchListItem
 import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.UpcomingEventListItem
-import java.text.DateFormat.getDateInstance
-import java.text.DateFormat.getTimeInstance
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import java.util.*
+import kz.kolesateam.confapp.utils.extensions.getEventFormattedTime
+import kz.kolesateam.confapp.utils.extensions.getParsedEventTime
 
 class BranchViewHolder(
         itemView: View,
@@ -57,6 +51,7 @@ class BranchViewHolder(
 
     }
 
+
     override fun onBind(data: UpcomingEventListItem) {
 
         val branchApiData: BranchApiData = (data as? BranchListItem)?.data ?: return
@@ -65,10 +60,10 @@ class BranchViewHolder(
         val currentEvent: EventApiData = branchApiData.events.first()
         val nextEvent: EventApiData = branchApiData.events.last()
 
-        val startTime = currentEvent.startTime.subSequence(11, 19)
-        val endTime = currentEvent.endTime.subSequence(11, 19)
-        val startTimeNextEvent = nextEvent.startTime.subSequence(11, 19)
-        val endTimeNextEvent = nextEvent.endTime.subSequence(11, 19)
+        val startTime = getParsedEventTime(currentEvent.startTime).getEventFormattedTime()
+        val endTime = getParsedEventTime(currentEvent.endTime).getEventFormattedTime()
+        val startTimeNextEvent = getParsedEventTime(nextEvent.startTime).getEventFormattedTime()
+        val endTimeNextEvent = getParsedEventTime(nextEvent.endTime).getEventFormattedTime()
 
         val currentEventDatePlaceText = "%s - %s • %s".format(
                 startTime,
@@ -101,7 +96,7 @@ class BranchViewHolder(
             upcomingEventsClickListeners.onBranchClick(data)
         }
         currentBranchEvent.setOnClickListener {
-            upcomingEventsClickListeners.onEventClick()
+            upcomingEventsClickListeners.onEventClick(currentEvent)
         }
         toFavouritesImageViewCurrent.setOnClickListener {
             currentEvent.isFavorite = !currentEvent.isFavorite

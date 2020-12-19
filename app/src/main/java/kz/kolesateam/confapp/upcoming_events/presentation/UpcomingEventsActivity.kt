@@ -83,8 +83,10 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
         startActivity(intent)
     }
 
-    override fun onEventClick() {
-        startActivity(Intent(this, EventsDetailsActivity::class.java))
+    override fun onEventClick(eventData: EventApiData) {
+        val intent: Intent = Intent(this, EventsDetailsActivity::class.java)
+        intent.putExtra("event_id", eventData.id)
+        startActivity(intent)
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {

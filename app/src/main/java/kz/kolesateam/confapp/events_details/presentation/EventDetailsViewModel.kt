@@ -7,13 +7,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kz.kolesateam.confapp.events_details.data.DefaultEventDetailsRepository
+import kz.kolesateam.confapp.events_details.domain.EventDetailsRepository
 import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.ProgressState
 import kz.kolesateam.confapp.models.ResponseData
 
 class EventDetailsViewModel(
-    private val eventDetailsRepository: DefaultEventDetailsRepository
+    private val eventDetailsRepository: EventDetailsRepository
 ) : ViewModel() {
 
     private val eventDetailsLiveData: MutableLiveData<EventApiData> = MutableLiveData()
@@ -23,11 +23,7 @@ class EventDetailsViewModel(
     fun getProgressBarLiveData(): LiveData<ProgressState> = progressLiveData
 
 
-    fun onStart(eventId: Int) {
-        getEventDetails(eventId)
-    }
-
-    private fun getEventDetails(eventId: Int) {
+    fun getEventDetails(eventId: Int) {
         GlobalScope.launch(Dispatchers.Main) {
             progressLiveData.value = ProgressState.Loading
             val response = withContext(Dispatchers.IO) {

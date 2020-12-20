@@ -8,7 +8,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
-import kz.kolesateam.confapp.models.*
+import kz.kolesateam.confapp.models.EventApiData
+import kz.kolesateam.confapp.models.ProgressState
+import kz.kolesateam.confapp.models.ResponseData
 
 class FavoriteEventsViewModel(
     private val favoriteEventsRepository: FavoriteEventsRepository

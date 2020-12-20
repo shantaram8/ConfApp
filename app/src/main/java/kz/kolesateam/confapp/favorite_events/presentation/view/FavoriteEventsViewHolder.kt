@@ -25,7 +25,6 @@ class FavoriteEventsViewHolder(
     private val eventTitle: TextView = itemView.findViewById(R.id.event_title_text_view)
     private val addToFavoritesImageView: ImageView = itemView.findViewById(R.id.to_favourite_image_view)
 
-
     override fun onBind(eventApiData: EventApiData) {
 
         val startTime = getParsedEventTime(eventApiData.startTime).getEventFormattedTime()

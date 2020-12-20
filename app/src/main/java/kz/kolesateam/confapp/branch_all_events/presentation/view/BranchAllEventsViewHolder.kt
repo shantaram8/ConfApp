@@ -12,12 +12,13 @@ import kz.kolesateam.confapp.upcoming_events.presentation.view.BaseViewHolder
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
 import kz.kolesateam.confapp.utils.extensions.getEventFormattedTime
 import kz.kolesateam.confapp.utils.extensions.getParsedEventTime
+import org.threeten.bp.ZonedDateTime
 
 const val DATE_PLACE_FORMATTED_STRING = "%s - %s • %s"
 
 class BranchAllEventsViewHolder(
     itemView: View,
-    private val branchAllEventsClickListeners: UpcomingEventsClickListeners
+    private val upcomingEventsClickListeners: UpcomingEventsClickListeners
 ) : BaseViewHolder<BranchAllEventsListItem>(itemView) {
 
     private val statusEventTextView: TextView = itemView.findViewById(R.id.status_event_text_view)
@@ -29,19 +30,25 @@ class BranchAllEventsViewHolder(
     private val speakerName: TextView = itemView.findViewById(R.id.speaker_name_text_view)
     private val speakerJob: TextView = itemView.findViewById(R.id.speaker_job_text_view)
     private val eventTitle: TextView = itemView.findViewById(R.id.event_title_text_view)
-    private val addToFavoritesIcon: ImageView = itemView.findViewById(R.id.to_favourite_image_view)
+    private val addToFavorites: ImageView = itemView.findViewById(R.id.to_favourite_image_view)
 
 
     override fun onBind(data: BranchAllEventsListItem) {
 
         val eventApiData: EventApiData = (data as? EventsListItem)?.data ?: return
 
-        val startTime = getParsedEventTime(eventApiData.startTime).getEventFormattedTime()
-        val endTime = getParsedEventTime(eventApiData.endTime).getEventFormattedTime()
+        val startTime = getParsedEventTime(eventApiData.startTime)
+        val endTime = getParsedEventTime(eventApiData.endTime)
+        val currentTime = ZonedDateTime.now()
+
+        if (currentTime.isAfter(endTime)) {
+            statusEventTextView.visibility = View.VISIBLE
+            eventCard.setBackgroundResource(R.drawable.bg_event_card_completed_item)
+        }
 
         val eventDatePlaceText = DATE_PLACE_FORMATTED_STRING.format(
-            startTime,
-            endTime,
+            startTime.getEventFormattedTime(),
+            endTime.getEventFormattedTime(),
             eventApiData.place
         )
 
@@ -50,21 +57,23 @@ class BranchAllEventsViewHolder(
         speakerJob.text = eventApiData.speaker?.job
         eventTitle.text = eventApiData.title
 
-        addToFavoritesIcon.setImageResource(
+
+
+        addToFavorites.setImageResource(
             getFavoriteImageResource(eventApiData.isFavorite)
         )
 
-        addToFavoritesIcon.setOnClickListener {
+        addToFavorites.setOnClickListener {
             eventApiData.isFavorite = !eventApiData.isFavorite
 
-            addToFavoritesIcon.setImageResource(
+            addToFavorites.setImageResource(
                 getFavoriteImageResource(eventApiData.isFavorite)
             )
 
-            branchAllEventsClickListeners.onAddToFavoritesClick(eventApiData)
+            upcomingEventsClickListeners.onAddToFavoritesClick(eventApiData)
         }
         eventCard.setOnClickListener {
-            branchAllEventsClickListeners.onEventClick(eventApiData)
+            upcomingEventsClickListeners.onEventClick(eventApiData)
         }
     }
 

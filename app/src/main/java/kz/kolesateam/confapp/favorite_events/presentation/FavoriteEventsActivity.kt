@@ -1,11 +1,11 @@
 package kz.kolesateam.confapp.favorite_events.presentation
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.events_details.presentation.EventsDetailsActivity
@@ -13,6 +13,7 @@ import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
 import kz.kolesateam.confapp.favorite_events.presentation.view.FavoriteEventsAdapter
 import kz.kolesateam.confapp.models.BranchListItem
 import kz.kolesateam.confapp.models.EventApiData
+import kz.kolesateam.confapp.upcoming_events.presentation.EVENT_ID
 import kz.kolesateam.confapp.upcoming_events.presentation.UpcomingEventsActivity
 import kz.kolesateam.confapp.upcoming_events.presentation.UpcomingEventsViewModel
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
@@ -22,9 +23,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class FavoriteEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners {
 
     private val favoriteEventsViewModel: FavoriteEventsViewModel by viewModel()
+    private val upcomingEventsViewModel: UpcomingEventsViewModel by viewModel()
     private val favoriteEventsRepository: FavoriteEventsRepository by inject()
     private val favoriteEventsAdapter = FavoriteEventsAdapter(this)
-
 
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
@@ -65,14 +66,16 @@ class FavoriteEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
         }
     }
 
-    override fun onBranchClick(branchData: BranchListItem) {
-    }
+    override fun onBranchClick(branchData: BranchListItem) = Unit
 
     override fun onEventClick(eventData: EventApiData) {
-        startActivity(Intent(this, EventsDetailsActivity::class.java))
+        val intent: Intent = Intent(this, EventsDetailsActivity::class.java)
+        intent.putExtra(EVENT_ID, eventData.id)
+        startActivity(intent)
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {
+        upcomingEventsViewModel.onAddToFavoriteClick(eventData)
     }
 
     override fun onFavoritesButtonClick() {

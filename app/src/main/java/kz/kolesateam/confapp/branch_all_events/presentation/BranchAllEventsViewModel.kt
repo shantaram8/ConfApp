@@ -43,14 +43,4 @@ class BranchAllEventsViewModel(
             progressLiveData.value = ProgressState.Done
         }
     }
-    fun onAddToFavoriteClick(
-        eventData: EventApiData
-    ) {
-        when(eventData.isFavorite) {
-            true -> {
-                favoriteEventsRepository.saveFavoriteEvents(eventData)
-            }
-            else -> favoriteEventsRepository.removeFavoriteEvent(eventsId = eventData.id)
-        }
-    }
 }

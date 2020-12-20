@@ -25,6 +25,7 @@
             android:padding="@dimen/view_padding_16x">
 
             <ImageView
+                android:id="@+id/activity_events_details_back_arrow_image_view"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:padding="@dimen/view_padding_4x"
@@ -38,7 +39,7 @@
                 android:src="@drawable/ic_logo_white" />
 
             <ImageView
-                android:id="@+id/activity_events_favorite_image_view"
+                android:id="@+id/activity_events_details_to_favorites_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -25,6 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners {
 
     private val branchAllEventsViewModel: BranchAllEventsViewModel by viewModel()
+    private val upcomingEventsViewModel: UpcomingEventsViewModel by viewModel()
     private val branchAllEventsAdapter = BranchAllEventsAdapter(this)
 
     private lateinit var progressBar: ProgressBar
@@ -87,7 +88,7 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {
-        branchAllEventsViewModel.onAddToFavoriteClick(eventData)
+        upcomingEventsViewModel.onAddToFavoriteClick(eventData)
     }
 
     override fun onFavoritesButtonClick() {

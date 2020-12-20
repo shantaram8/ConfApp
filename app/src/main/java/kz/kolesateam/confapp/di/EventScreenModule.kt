@@ -32,7 +32,8 @@ val eventScreenModule: Module = module {
     }
     viewModel {
         BranchAllEventsViewModel(
-            branchAllEventsRepository = get()
+            branchAllEventsRepository = get(),
+            favoriteEventsRepository = get()
         )
     }
     viewModel {

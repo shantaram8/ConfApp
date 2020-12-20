@@ -1,5 +1,6 @@
 package kz.kolesateam.confapp.events_details.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -11,13 +12,17 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.branch_all_events.presentation.view.DATE_PLACE_FORMATTED_STRING
+import kz.kolesateam.confapp.favorite_events.presentation.FavoriteEventsActivity
 import kz.kolesateam.confapp.models.EventApiData
+import kz.kolesateam.confapp.upcoming_events.presentation.view.BackArrowClickListener
+import kz.kolesateam.confapp.upcoming_events.presentation.view.FavoritesButtonClickListener
 import kz.kolesateam.confapp.utils.extensions.getEventFormattedTime
 import kz.kolesateam.confapp.utils.extensions.getParsedEventTime
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+private const val EVENT_ID = "event_id"
 
-class EventsDetailsActivity : AppCompatActivity() {
+class EventsDetailsActivity : AppCompatActivity(), BackArrowClickListener, FavoritesButtonClickListener {
 
     private val eventDetailsViewModel: EventDetailsViewModel by viewModel()
 
@@ -34,7 +39,8 @@ class EventsDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_events_details)
         bindViews()
-        val eventId: Int = intent.getIntExtra("event_id", 0)
+
+        val eventId: Int = intent.getIntExtra(EVENT_ID, 1)
         eventDetailsViewModel.getEventDetails(eventId)
         observeEventDetailsViewModel()
     }
@@ -67,6 +73,8 @@ class EventsDetailsActivity : AppCompatActivity() {
 
         if (eventApiData.speaker?.isInvited == true) {
             invitedSpeaker.visibility = View.VISIBLE
+        } else {
+            invitedSpeaker.visibility = View.GONE
         }
 
         val startTime = getParsedEventTime(eventApiData.startTime).getEventFormattedTime()
@@ -78,6 +86,12 @@ class EventsDetailsActivity : AppCompatActivity() {
             eventApiData.place
         )
 
+    }
+
+    override fun onFavoritesButtonClick() = Unit
+
+    override fun onBackArrowClick() {
+        onBackPressed()
     }
 }
 

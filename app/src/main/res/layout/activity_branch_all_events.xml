@@ -24,6 +24,7 @@
         >
 
         <ImageView
+            android:id="@+id/activity_all_upcoming_events_back_arrow_image_view"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:padding="@dimen/view_padding_4x"

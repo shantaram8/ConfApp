@@ -50,12 +50,29 @@ class BranchAllEventsViewHolder(
         speakerJob.text = eventApiData.speaker?.job
         eventTitle.text = eventApiData.title
 
+        addToFavoritesIcon.setImageResource(
+            getFavoriteImageResource(eventApiData.isFavorite)
+        )
+
         addToFavoritesIcon.setOnClickListener {
+            eventApiData.isFavorite = !eventApiData.isFavorite
+
+            addToFavoritesIcon.setImageResource(
+                getFavoriteImageResource(eventApiData.isFavorite)
+            )
+
             branchAllEventsClickListeners.onAddToFavoritesClick(eventApiData)
         }
         eventCard.setOnClickListener {
             branchAllEventsClickListeners.onEventClick(eventApiData)
         }
+    }
+
+    private fun getFavoriteImageResource(
+        isFavorite: Boolean
+    ): Int = when (isFavorite) {
+        true -> R.drawable.ic_favorite_fill
+        else -> R.drawable.ic_favorite_border
     }
 
 

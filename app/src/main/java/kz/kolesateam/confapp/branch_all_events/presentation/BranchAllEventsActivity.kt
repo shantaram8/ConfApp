@@ -1,8 +1,10 @@
 package kz.kolesateam.confapp.branch_all_events.presentation
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +15,11 @@ import kz.kolesateam.confapp.models.BranchListItem
 import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.branch_all_events.presentation.view.BranchAllEventsAdapter
 import kz.kolesateam.confapp.events_details.presentation.EventsDetailsActivity
+import kz.kolesateam.confapp.favorite_events.presentation.FavoriteEventsActivity
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
 import kz.kolesateam.confapp.models.ProgressState
+import kz.kolesateam.confapp.upcoming_events.presentation.EVENT_ID
+import kz.kolesateam.confapp.upcoming_events.presentation.UpcomingEventsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners {
@@ -25,16 +30,14 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private lateinit var favoritesButton: Button
+    private lateinit var backArrowButton: ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_branch_all_events)
         bindViews()
-
-        favoritesButton.setOnClickListener {
-            onFavoritesButtonClick()
-        }
+        setOnClickListeners()
 
         val branchId: Int = intent.getIntExtra("branch_id", 0)
         val branchTitle: String = intent.getStringExtra("branch_title") ?: "default_title"
@@ -42,8 +45,18 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
         branchAllEventsViewModel.onStart(branchId, branchTitle)
     }
 
+    private fun setOnClickListeners() {
+        favoritesButton.setOnClickListener {
+            onFavoritesButtonClick()
+        }
+        backArrowButton.setOnClickListener {
+            onBackArrowClick()
+        }
+    }
+
     private fun bindViews() {
         favoritesButton = findViewById(R.id.activity_all_upcoming_events_favorites_button)
+        backArrowButton = findViewById(R.id.activity_all_upcoming_events_back_arrow_image_view)
         progressBar = findViewById(R.id.activity_branch_all_events_progress_bar)
         recyclerView = findViewById(R.id.activity_branch_all_events_recycler_view)
         recyclerView.adapter = branchAllEventsAdapter
@@ -59,7 +72,7 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
     }
 
     private fun handleProgressBarState(
-            progressState: ProgressState
+        progressState: ProgressState
     ) {
         progressBar.isVisible = progressState is ProgressState.Loading
     }
@@ -68,22 +81,20 @@ class BranchAllEventsActivity : AppCompatActivity(), UpcomingEventsClickListener
     }
 
     override fun onEventClick(eventData: EventApiData) {
-        startActivity(Intent(this, EventsDetailsActivity::class.java))
+        val intent = Intent(this, EventsDetailsActivity::class.java)
+        intent.putExtra(EVENT_ID, eventData.id)
+        startActivity(intent)
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {
-        Toast.makeText(
-                this,
-                "${eventData.speaker?.fullName}'s heart has been clicked",
-                Toast.LENGTH_SHORT
-        ).show()
+        branchAllEventsViewModel.onAddToFavoriteClick(eventData)
     }
 
     override fun onFavoritesButtonClick() {
-        Toast.makeText(
-                this,
-                "Favorites button has been clicked",
-                Toast.LENGTH_SHORT
-        ).show()
+        startActivity(Intent(this, FavoriteEventsActivity::class.java))
+    }
+
+    override fun onBackArrowClick() {
+        onBackPressed()
     }
 }

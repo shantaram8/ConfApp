@@ -17,6 +17,7 @@ import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsAda
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+const val EVENT_ID = "event_id"
 
 class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners {
 
@@ -85,7 +86,7 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
 
     override fun onEventClick(eventData: EventApiData) {
         val intent: Intent = Intent(this, EventsDetailsActivity::class.java)
-        intent.putExtra("event_id", eventData.id)
+        intent.putExtra(EVENT_ID, eventData.id)
         startActivity(intent)
     }
 
@@ -95,6 +96,9 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
 
     override fun onFavoritesButtonClick() {
         startActivity(Intent(this, FavoriteEventsActivity::class.java))
+    }
+
+    override fun onBackArrowClick() {
     }
 
 

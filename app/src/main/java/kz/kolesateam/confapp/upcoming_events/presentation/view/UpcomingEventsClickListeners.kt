@@ -7,7 +7,8 @@ interface UpcomingEventsClickListeners :
     BranchClickListener,
     EventClickListener,
     AddToFavoritesClickListener,
-    FavoritesButtonClickListener
+    FavoritesButtonClickListener,
+    BackArrowClickListener
 
 interface BranchClickListener {
 
@@ -31,4 +32,9 @@ interface AddToFavoritesClickListener {
 interface FavoritesButtonClickListener {
 
     fun onFavoritesButtonClick()
+}
+
+interface BackArrowClickListener {
+
+    fun onBackArrowClick()
 }

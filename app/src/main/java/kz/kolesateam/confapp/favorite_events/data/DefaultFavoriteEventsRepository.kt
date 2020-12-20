@@ -20,9 +20,7 @@ class DefaultFavoriteEventsRepository(
 
     init {
         val favoriteEventsFromFile = getFavoriteEventsFromFile()
-        favoriteEvents = mutableMapOf()
         favoriteEvents.putAll(favoriteEventsFromFile)
-
     }
 
     override fun saveFavoriteEvents(eventApiData: EventApiData) {

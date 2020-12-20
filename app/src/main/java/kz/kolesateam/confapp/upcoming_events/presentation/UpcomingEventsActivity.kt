@@ -10,12 +10,14 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
 import kz.kolesateam.confapp.branch_all_events.presentation.BranchAllEventsActivity
+import kz.kolesateam.confapp.events_details.presentation.EventsDetailsActivity
 import kz.kolesateam.confapp.favorite_events.presentation.FavoriteEventsActivity
 import kz.kolesateam.confapp.models.*
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsAdapter
 import kz.kolesateam.confapp.upcoming_events.presentation.view.UpcomingEventsClickListeners
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+const val EVENT_ID = "event_id"
 
 class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners {
 
@@ -83,6 +85,9 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
     }
 
     override fun onEventClick(eventData: EventApiData) {
+        val intent: Intent = Intent(this, EventsDetailsActivity::class.java)
+        intent.putExtra(EVENT_ID, eventData.id)
+        startActivity(intent)
     }
 
     override fun onAddToFavoritesClick(eventData: EventApiData) {
@@ -91,6 +96,9 @@ class UpcomingEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
 
     override fun onFavoritesButtonClick() {
         startActivity(Intent(this, FavoriteEventsActivity::class.java))
+    }
+
+    override fun onBackArrowClick() {
     }
 
 

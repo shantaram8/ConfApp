@@ -1,4 +1,4 @@
-package kz.kolesateam.confapp.favorite_events.presentation
+package kz.kolesateam.confapp.events_details.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,36 +7,35 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
+import kz.kolesateam.confapp.events_details.domain.EventDetailsRepository
 import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.ProgressState
 import kz.kolesateam.confapp.models.ResponseData
 
-class FavoriteEventsViewModel(
-    private val favoriteEventsRepository: FavoriteEventsRepository
+class EventDetailsViewModel(
+    private val eventDetailsRepository: EventDetailsRepository
 ) : ViewModel() {
 
-    private val favoriteEventsLiveData: MutableLiveData<List<EventApiData>> = MutableLiveData()
+    private val eventDetailsLiveData: MutableLiveData<EventApiData> = MutableLiveData()
     private val progressLiveData: MutableLiveData<ProgressState> = MutableLiveData()
 
-    fun getBranchAllEventsLiveData(): LiveData<List<EventApiData>> = favoriteEventsLiveData
+    fun getEventDetailsLiveData(): LiveData<EventApiData> = eventDetailsLiveData
     fun getProgressBarLiveData(): LiveData<ProgressState> = progressLiveData
 
-    fun onStart() {
-        getFavoriteEvents()
-    }
 
-    private fun getFavoriteEvents() {
+    fun getEventDetails(eventId: Int) {
         GlobalScope.launch(Dispatchers.Main) {
             progressLiveData.value = ProgressState.Loading
             val response = withContext(Dispatchers.IO) {
-                favoriteEventsRepository.getAllFavoriteEvents()
+                eventDetailsRepository.getEventsDetails(eventId)
             }
             when (response) {
-                is ResponseData.Success -> favoriteEventsLiveData.value = response.result
+                is ResponseData.Success -> eventDetailsLiveData.value = response.result
                 is ResponseData.Error -> println(response.error)
             }
             progressLiveData.value = ProgressState.Done
         }
     }
+
+
 }

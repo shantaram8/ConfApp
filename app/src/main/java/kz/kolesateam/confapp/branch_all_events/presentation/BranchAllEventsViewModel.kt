@@ -8,12 +8,15 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.branch_all_events.domain.BranchAllEventsRepository
+import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
 import kz.kolesateam.confapp.models.BranchAllEventsListItem
+import kz.kolesateam.confapp.models.EventApiData
 import kz.kolesateam.confapp.models.ProgressState
 import kz.kolesateam.confapp.models.ResponseData
 
 class BranchAllEventsViewModel(
-    private val branchAllEventsRepository: BranchAllEventsRepository
+    private val branchAllEventsRepository: BranchAllEventsRepository,
+    private val favoriteEventsRepository: FavoriteEventsRepository
 ) : ViewModel() {
 
     private val branchAllEventsLiveData: MutableLiveData<List<BranchAllEventsListItem>> = MutableLiveData()

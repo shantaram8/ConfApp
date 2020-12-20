@@ -8,7 +8,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kz.kolesateam.confapp.favorite_events.domain.FavoriteEventsRepository
-import kz.kolesateam.confapp.models.*
+import kz.kolesateam.confapp.models.BranchApiData
+import kz.kolesateam.confapp.models.BranchListItem
+import kz.kolesateam.confapp.models.EventApiData
+import kz.kolesateam.confapp.models.ProgressState
+import kz.kolesateam.confapp.models.ResponseData
+import kz.kolesateam.confapp.models.UpcomingEventListItem
 import kz.kolesateam.confapp.notifications.NotificationAlarmHelper
 import kz.kolesateam.confapp.upcoming_events.domain.UpcomingEventsRepository
 
@@ -47,7 +52,8 @@ class UpcomingEventsViewModel(
     private fun scheduleEvent(eventData: EventApiData) {
         notificationAlarmHelper.createNotificationAlarm(
                 content = eventData.title,
-                eventDate  = eventData.startTime
+                eventDate  = eventData.startTime,
+                eventId = eventData.id ?: 0
         )
     }
 

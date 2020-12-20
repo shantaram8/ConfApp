@@ -24,6 +24,7 @@
         >
 
         <ImageView
+            android:id="@+id/activity_favorite_events_back_arrow_image_view"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:padding="@dimen/view_padding_4x"
@@ -62,7 +63,7 @@
 
 
     <Button
-        android:id="@+id/activity_favorite_events_to_main_button"
+        android:id="@+id/activity_favorite_events_to_upcoming_events_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"

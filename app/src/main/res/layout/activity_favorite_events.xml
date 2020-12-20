@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_main"
-    tools:context=".upcoming_events.presentation.UpcomingEventsActivity"
+    tools:context=".favorite_events.presentation.FavoriteEventsActivity"
     >
     <ProgressBar
-        android:id="@+id/activity_branch_all_events_progress_bar"
+        android:id="@+id/activity_favorite_events_events_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
@@ -17,7 +17,7 @@
         />
 
     <LinearLayout
-        android:id="@+id/activity_all_upcoming_events_header_linear_layout"
+        android:id="@+id/activity_favorite_events_header_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/view_padding_16x"
@@ -49,7 +49,7 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activity_branch_all_events_recycler_view"
+            android:id="@+id/activity_favorite_events_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
@@ -62,16 +62,16 @@
 
 
     <Button
-        android:id="@+id/activity_all_upcoming_events_favorites_button"
+        android:id="@+id/activity_favorite_events_to_main_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="@dimen/view_margin_24x"
         android:background="@drawable/bg_upcoming_events_activity_favourites_button"
-        android:drawableStart="@drawable/ic_favorite_border"
+        android:drawableStart="@drawable/ic_main_menu"
         android:drawablePadding="10dp"
         android:paddingHorizontal="@dimen/view_padding_16x"
-        android:text="В избранные"
+        android:text="На главную"
         android:textAllCaps="false"
         android:textColor="@color/activity_upcoming_events_button_text_color"
         android:textSize="@dimen/view_button_text_size"

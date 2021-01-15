@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import kz.kolesateam.confapp.R
+import kz.kolesateam.confapp.empty_favorites.EmptyFavoritesActivity
 import kz.kolesateam.confapp.events_details.presentation.EventsDetailsActivity
 import kz.kolesateam.confapp.favorite_events.presentation.view.FavoriteEventsAdapter
 import kz.kolesateam.confapp.models.BranchListItem
@@ -30,17 +31,23 @@ class FavoriteEventsActivity : AppCompatActivity(), UpcomingEventsClickListeners
     private lateinit var toBackArrowImageView: ImageView
 
     private fun bindViews() {
-        toUpcomingEventsButton = findViewById(R.id.activity_favorite_events_to_upcoming_events_button)
+        toUpcomingEventsButton =
+            findViewById(R.id.activity_favorite_events_to_upcoming_events_button)
         toBackArrowImageView = findViewById(R.id.activity_favorite_events_back_arrow_image_view)
         progressBar = findViewById(R.id.activity_favorite_events_events_progress_bar)
         recyclerView = findViewById(R.id.activity_favorite_events_recycler_view)
         recyclerView.adapter = favoriteEventsAdapter
     }
+
     private fun observeFavoriteEventsViewModel() {
         favoriteEventsViewModel.getProgressBarLiveData().observe(this, {
         })
         favoriteEventsViewModel.getBranchAllEventsLiveData().observe(this, {
-            favoriteEventsAdapter.setList(it.reversed())
+            if (it.isEmpty()) {
+                startActivity(Intent(this, EmptyFavoritesActivity::class.java))
+            } else {
+                favoriteEventsAdapter.setList(it.reversed())
+            }
         })
     }
 
